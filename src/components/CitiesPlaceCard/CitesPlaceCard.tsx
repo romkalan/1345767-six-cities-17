@@ -1,4 +1,4 @@
-export default function Card() {
+function CitesPlaceCard() {
   return (
     <article className="cities__card place-card">
       <div className="place-card__mark">
@@ -6,7 +6,13 @@ export default function Card() {
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width="260" height="200" alt="Place image" />
+          <img
+            className="place-card__image"
+            src="img/apartment-01.jpg"
+            width="260"
+            height="200"
+            alt="Place image"
+          />
         </a>
       </div>
       <div className="place-card__info">
@@ -24,7 +30,7 @@ export default function Card() {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{ width: '80%' }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -36,3 +42,5 @@ export default function Card() {
     </article>
   );
 }
+
+export default CitesPlaceCard;
