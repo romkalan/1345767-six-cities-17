@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import MainPage from './pages/main.tsx';
+import App from './components/App/App.tsx';
+
+const Settings = {
+  OffersCount: 312,
+} as const;
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
-
-function App() {
-  return (<MainPage />);
-}
 
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <App offersCount={Settings.OffersCount} />
+  </React.StrictMode>,
 );
