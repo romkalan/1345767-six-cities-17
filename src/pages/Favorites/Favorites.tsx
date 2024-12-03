@@ -8,7 +8,7 @@ function Favorites() {
               <a className="header__logo-link" href="main.html">
                 <img
                   className="header__logo"
-                  src="../../markupimg/logo.svg"
+                  src="../../../markup/img/logo.svg"
                   alt="6 cities logo"
                   width="81"
                   height="41"
