@@ -6,7 +6,7 @@ import { TOffer } from '../../types/TOffer.ts';
 
 type AppProps = {
   offersCount: number;
-  offers: Offer[];
+  offers: TOffer[];
 };
 
 function App({ offersCount, offers }: AppProps) {
