@@ -1,4 +1,11 @@
-function Favorites() {
+import { TOffer } from '../../types/TOffer.ts';
+
+type FavoriteProps = {
+  favoriteOffers: TOffer[];
+};
+
+function Favorites({ favoriteOffers }: FavoriteProps) {
+  const { price } = favoriteOffers[0];
   return (
     <div className="page">
       <header className="header">
@@ -72,7 +79,9 @@ function Favorites() {
                     <div className="favorites__card-info place-card__info">
                       <div className="place-card__price-wrapper">
                         <div className="place-card__price">
-                          <b className="place-card__price-value">&euro;180</b>
+                          <b className="place-card__price-value">
+                            &euro;{price}
+                          </b>
                           <span className="place-card__price-text">
                             &#47;&nbsp;night
                           </span>
