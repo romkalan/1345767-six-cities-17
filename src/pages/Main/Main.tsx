@@ -1,10 +1,12 @@
-import CitesPlaceCard from '../../components/CitiesPlaceCard/CitesPlaceCard.tsx';
+import { TOffer } from '../../types/TOffer.ts';
+import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
 
 type MainPageProps = {
   offersCount: number;
+  offers: TOffer[];
 };
 
-function MainPage({ offersCount }: MainPageProps) {
+function MainPage({ offersCount, offers }: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -117,13 +119,7 @@ function MainPage({ offersCount }: MainPageProps) {
                   </li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <CitesPlaceCard />
-                <CitesPlaceCard />
-                <CitesPlaceCard />
-                <CitesPlaceCard />
-                <CitesPlaceCard />
-              </div>
+              <OfferCardList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

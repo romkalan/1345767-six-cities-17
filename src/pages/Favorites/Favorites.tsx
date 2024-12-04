@@ -1,4 +1,10 @@
-function Favorites() {
+import { TOffer } from '../../types/TOffer.ts';
+
+type FavoriteProps = {
+  favoriteOffers: TOffer[];
+};
+
+function Favorites({ favoriteOffers }: FavoriteProps) {
   return (
     <div className="page">
       <header className="header">
