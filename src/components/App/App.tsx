@@ -3,13 +3,15 @@ import { AppRoute, AuthorizationStatus } from '../../consts/const.ts';
 import { MainPage, Login, Favorites, Offer, NotFoundPage } from '../../pages';
 import PrivateRoute from '../PrivateRoute/PrivateRoute.tsx';
 import { TOffer } from '../../types/TOffer.ts';
+import { TOfferById } from '../../types/TOfferById.ts';
 
 type AppProps = {
   offersCount: number;
   offers: TOffer[];
+  offerById: TOfferById;
 };
 
-function App({ offersCount, offers }: AppProps) {
+function App({ offersCount, offers, offerById }: AppProps) {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   return (
@@ -29,7 +31,7 @@ function App({ offersCount, offers }: AppProps) {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<Offer />} />
+          <Route path={AppRoute.Offer} element={<Offer offer={offerById} />} />
           <Route path={'*'} element={<NotFoundPage />} />
         </Route>
       </Routes>

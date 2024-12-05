@@ -1,14 +1,25 @@
 import { TOffer } from '../../types/TOffer.ts';
 import OfferCard from '../OfferCard/OfferCard.tsx';
+import { useState } from 'react';
 
 type OfferCardListProps = {
   offers: TOffer[];
 };
 
 function OfferCardList({ offers }: OfferCardListProps) {
+  const [currentCard, setCurrentCard] = useState<TOffer>();
+
+  console.log(currentCard);
+
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers?.map(({ id, ...offer }) => <OfferCard key={id} offer={offer} />)}
+      {offers?.map((offer) => (
+        <OfferCard
+          key={offer.id}
+          offer={offer}
+          setCurrentCard={setCurrentCard}
+        />
+      ))}
     </div>
   );
 }
