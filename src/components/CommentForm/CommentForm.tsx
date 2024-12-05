@@ -7,15 +7,14 @@ function CommentForm() {
   });
   const isButtonFormDisabled = formData.review === '';
 
-  const handleFieldChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  // const handleFieldChange = (evt) => {
+  //   const { name, value } = evt.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
 
-  const handleFormSubmit = (evt) => {
-    evt.preventDefault();
+  const handleFormSubmit = () => {
     if (!isButtonFormDisabled) {
-      console.log(formData);
+      // console.log(formData);
     }
   };
 
@@ -161,7 +160,7 @@ function CommentForm() {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={formData.review}
-        onChange={handleFieldChange}
+        // onChange={handleFieldChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
