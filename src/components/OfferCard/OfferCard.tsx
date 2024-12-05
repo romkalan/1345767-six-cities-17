@@ -1,15 +1,21 @@
 import { TOffer } from '../../types/TOffer.ts';
+import { Link } from 'react-router-dom';
 
 type OfferCardProps = {
   offer: TOffer;
+  setCurrentCard: (offer: TOffer) => void;
 };
 
-function OfferCard({ offer }: OfferCardProps) {
+function OfferCard({ offer, setCurrentCard }: OfferCardProps) {
   const { isFavorite, isPremium, type, title, previewImage, price, rating } =
     offer;
   const MAX_STARS_FOR_RATING = 5;
   const ratingStyle = { width: `${(100 / MAX_STARS_FOR_RATING) * rating}%` };
   const favoriteClass = isFavorite && ' place-card__bookmark-button--active';
+
+  const handleCardOver = () => {
+    setCurrentCard(offer);
+  };
 
   return (
     <article className="cities__card place-card">
@@ -18,8 +24,11 @@ function OfferCard({ offer }: OfferCardProps) {
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+      <div
+        className="cities__image-wrapper place-card__image-wrapper"
+        onMouseOver={handleCardOver}
+      >
+        <Link to={`/offer/${offer.id}`}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -27,7 +36,7 @@ function OfferCard({ offer }: OfferCardProps) {
             height="200"
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -52,7 +61,7 @@ function OfferCard({ offer }: OfferCardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`/offer/${offer.id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
