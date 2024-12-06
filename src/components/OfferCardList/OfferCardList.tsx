@@ -7,9 +7,7 @@ type OfferCardListProps = {
 };
 
 function OfferCardList({ offers }: OfferCardListProps) {
-  const [currentCard, setCurrentCard] = useState<TOffer>();
-
-  console.log(currentCard);
+  const [, setCurrentCard] = useState<TOffer>();
 
   return (
     <div className="cities__places-list places__list tabs__content">
