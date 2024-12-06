@@ -4,7 +4,7 @@ export const offerById: TOfferById = {
   id: '6af6f711-c28d-4121-82cd-e0b462a27f00',
   title: 'Beautiful & luxurious studio at great location',
   type: 'apartment',
-  price: 120,
+  price: 333,
   city: {
     name: 'Amsterdam',
     location: {
@@ -20,11 +20,22 @@ export const offerById: TOfferById = {
   },
   isFavorite: false,
   isPremium: false,
-  rating: 4,
+  rating: 5,
   description:
     'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
   bedrooms: 3,
-  goods: ['Heating'],
+  goods: [
+    'Heating',
+    'Wi-Fi',
+    'Washing machine',
+    'Towels',
+    'Coffee machine',
+    'Baby seat',
+    'Kitchen',
+    'Dishwasher',
+    'Cabel TV',
+    'Fridge',
+  ],
   host: {
     name: 'Oliver Conner',
     avatarUrl: 'https://url-to-image/image.png',
@@ -34,5 +45,4 @@ export const offerById: TOfferById = {
     'https://avatars.mds.yandex.net/get-ydo/1540809/2a0000016a39e4c1f530ba5562a9d93c175f/diploma',
   ],
   maxAdults: 4,
-  previewImage: 'img/apartment-02.jpg',
 };

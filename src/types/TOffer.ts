@@ -1,3 +1,5 @@
+import { TCityTypes } from './TCityTypes.ts';
+
 export type Location = {
   latitude: number;
   longitude: number;
@@ -5,7 +7,7 @@ export type Location = {
 };
 
 export type City = {
-  name: string;
+  name: TCityTypes;
   location: Location;
 };
 

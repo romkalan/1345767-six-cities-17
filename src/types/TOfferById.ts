@@ -6,7 +6,7 @@ export type THost = {
   isPro: boolean;
 };
 
-export type TOfferById = TOffer & {
+export type TOfferById = Omit<TOffer, 'previewImage'> & {
   description: string;
   bedrooms: number;
   goods: string[];
