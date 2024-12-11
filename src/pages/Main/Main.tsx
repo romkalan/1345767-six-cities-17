@@ -2,6 +2,7 @@ import { TOffer } from '../../types/TOffer.ts';
 import { AppRoute } from '../../consts/const.ts';
 import { Link } from 'react-router-dom';
 import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
+import Map from '../../components/Map/Map.tsx';
 
 type MainPageProps = {
   offersCount: number;
@@ -103,7 +104,9 @@ function MainPage({ offersCount, offers }: MainPageProps) {
               <OfferCardList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={offers[0].city} />
+              </section>
             </div>
           </div>
         </div>
