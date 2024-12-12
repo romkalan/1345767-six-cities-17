@@ -8,14 +8,14 @@ export const offerById: TOfferById = {
   city: {
     name: 'Amsterdam',
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 8,
+      latitude: 52.374,
+      longitude: 4.88969,
+      zoom: 12,
     },
   },
   location: {
-    latitude: 52.35514938496378,
-    longitude: 4.673877537499948,
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
     zoom: 8,
   },
   isFavorite: false,

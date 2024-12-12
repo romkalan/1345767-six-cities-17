@@ -3,6 +3,7 @@ import { AppRoute } from '../../consts/const.ts';
 import { Link } from 'react-router-dom';
 import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
 import Map from '../../components/Map/Map.tsx';
+import { useState } from 'react';
 
 type MainPageProps = {
   offersCount: number;
@@ -10,6 +11,8 @@ type MainPageProps = {
 };
 
 function MainPage({ offersCount, offers }: MainPageProps) {
+  const [activeOffer, setActiveOffer] = useState<TOffer>(offers[0]);
+
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -101,11 +104,11 @@ function MainPage({ offersCount, offers }: MainPageProps) {
                   </li>
                 </ul>
               </form>
-              <OfferCardList offers={offers} />
+              <OfferCardList offers={offers} setActiveOffer={setActiveOffer} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={offers[0].city} />
+                <Map activeOffer={activeOffer} offers={offers} />
               </section>
             </div>
           </div>
