@@ -5,6 +5,7 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute.tsx';
 import { TOffer } from '../../types/TOffer.ts';
 import { TOfferById } from '../../types/TOfferById.ts';
 import Layout from '../Layout/Layout.tsx';
+import { offersNearby } from '../../mocks/offers.ts';
 
 type AppProps = {
   offersCount: number;
@@ -30,7 +31,12 @@ function App({ offersCount, offers, offerById }: AppProps) {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<Offer offer={offerById} />} />
+          <Route
+            path={AppRoute.Offer}
+            element={
+              <Offer offersNearby={offersNearby} offerById={offerById} />
+            }
+          />
         </Route>
         <Route path={'*'} element={<NotFoundPage />} />
       </Routes>

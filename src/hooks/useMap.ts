@@ -2,12 +2,10 @@ import { useEffect, useRef, useState, MutableRefObject } from 'react';
 import leaflet, { Map } from 'leaflet';
 import { City } from '../types/TOffer.ts';
 
-type useMapProps = {
-  mapRef: MutableRefObject<HTMLElement | null>;
-  city: City;
-};
-
-function useMap({ mapRef, city }: useMapProps): Map | null {
+function useMap(
+  mapRef: MutableRefObject<HTMLElement | null>,
+  city: City,
+): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 

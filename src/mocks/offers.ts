@@ -9,15 +9,15 @@ export const offers: TOffer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3909553943508,
-        longitude: 4.85309666406198,
-        zoom: 8,
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 12,
       },
     },
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
-      zoom: 8,
+      zoom: 12,
     },
     isFavorite: false,
     isPremium: false,
@@ -32,15 +32,15 @@ export const offers: TOffer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3609553943508,
-        longitude: 4.85309666406198,
-        zoom: 8,
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 12,
       },
     },
     location: {
       latitude: 52.3609553943508,
       longitude: 4.85309666406198,
-      zoom: 8,
+      zoom: 12,
     },
     isFavorite: true,
     isPremium: false,
@@ -55,15 +55,15 @@ export const offers: TOffer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3909553943508,
-        longitude: 4.929309666406198,
-        zoom: 8,
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 12,
       },
     },
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
-      zoom: 8,
+      zoom: 12,
     },
     isFavorite: false,
     isPremium: false,
@@ -78,15 +78,15 @@ export const offers: TOffer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.3809553943508,
-        longitude: 4.939309666406198,
-        zoom: 8,
+        latitude: 52.374,
+        longitude: 4.88969,
+        zoom: 12,
       },
     },
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
-      zoom: 8,
+      zoom: 12,
     },
     isFavorite: true,
     isPremium: false,
@@ -94,3 +94,5 @@ export const offers: TOffer[] = [
     previewImage: 'img/apartment-03.jpg',
   },
 ];
+
+export const offersNearby: TOffer[] = offers.slice(1, 4);

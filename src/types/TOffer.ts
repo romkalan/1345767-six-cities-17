@@ -21,5 +21,5 @@ export type TOffer = {
   isPremium: boolean;
   rating: number;
   previewImage: string;
-  id?: string;
+  id: string;
 };
