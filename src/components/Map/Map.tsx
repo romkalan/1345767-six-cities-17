@@ -48,7 +48,6 @@ function Map({ activeOffer, offers, isNearby }: MapProps): JSX.Element {
       });
 
       if (isNearby) {
-        console.log(activeOffer);
         leaflet
           .marker(
             {

@@ -104,7 +104,11 @@ function MainPage({ offersCount, offers }: MainPageProps) {
                   </li>
                 </ul>
               </form>
-              <OfferCardList offers={offers} setActiveOffer={setActiveOffer} />
+              <OfferCardList
+                offers={offers}
+                setActiveOffer={setActiveOffer}
+                isNearbyOffers={false}
+              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
