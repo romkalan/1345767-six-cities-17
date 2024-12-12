@@ -5,28 +5,36 @@ import { Link } from 'react-router-dom';
 type OfferCardProps = {
   offer: TOffer;
   setCurrentCard: (offer: TOffer) => void;
+  isNearbyOffer: boolean;
 };
 
-function OfferCard({ offer, setCurrentCard }: OfferCardProps) {
+function OfferCard({ offer, setCurrentCard, isNearbyOffer }: OfferCardProps) {
   const { isFavorite, isPremium, type, title, previewImage, price, rating } =
     offer;
   const ratingStyle = { width: `${(100 / MAX_STARS_FOR_RATING) * rating}%` };
   const favoriteClass = isFavorite && ' place-card__bookmark-button--active';
+
+  const cardClassWrapper = isNearbyOffer ? 'near-places' : 'cities';
+  const cardClassWrapperForImage = isNearbyOffer
+    ? 'near-places__image'
+    : 'cities__image';
 
   const handleCardOver = () => {
     setCurrentCard(offer);
   };
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className={`${cardClassWrapper}__card place-card`}
+      onMouseOver={handleCardOver}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div
-        className="cities__image-wrapper place-card__image-wrapper"
-        onMouseOver={handleCardOver}
+        className={`${cardClassWrapperForImage}-wrapper place-card__image-wrapper`}
       >
         <Link to={`/offer/${offer.id}`}>
           <img
