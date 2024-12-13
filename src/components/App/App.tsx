@@ -6,14 +6,16 @@ import { TOffer } from '../../types/TOffer.ts';
 import { TOfferById } from '../../types/TOfferById.ts';
 import Layout from '../Layout/Layout.tsx';
 import { offersNearby } from '../../mocks/offers.ts';
+import { TComment } from '../../types/TComment.ts';
 
 type AppProps = {
   offersCount: number;
   offers: TOffer[];
   offerById: TOfferById;
+  comments: TComment[];
 };
 
-function App({ offersCount, offers, offerById }: AppProps) {
+function App({ offersCount, offers, offerById, comments }: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -34,7 +36,11 @@ function App({ offersCount, offers, offerById }: AppProps) {
           <Route
             path={AppRoute.Offer}
             element={
-              <Offer offersNearby={offersNearby} offerById={offerById} />
+              <Offer
+                offersNearby={offersNearby}
+                offerById={offerById}
+                comments={comments}
+              />
             }
           />
         </Route>

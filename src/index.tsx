@@ -4,6 +4,7 @@ import App from './components/App/App.tsx';
 import { offers } from './mocks/offers.ts';
 import { offerById } from './mocks/offerById.ts';
 import { Settings } from './consts/const.ts';
+import { comments } from './mocks/comments.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -15,6 +16,7 @@ root.render(
       offersCount={Settings.OffersCount}
       offers={offers}
       offerById={offerById}
+      comments={comments}
     />
   </React.StrictMode>,
 );

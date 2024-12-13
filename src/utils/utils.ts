@@ -1,5 +1,6 @@
 import { TOffer } from '../types/TOffer.ts';
 import { TCityOffers } from '../types/TCityOffers.ts';
+import { TComment } from '../types/TComment.ts';
 
 const groupOffersByCity = (offersList: TOffer[]) =>
   offersList.reduce((acc, offer) => {
@@ -19,4 +20,7 @@ const groupOffersByCity = (offersList: TOffer[]) =>
     return acc;
   }, {} as TCityOffers);
 
-export { groupOffersByCity };
+const sortByDate = (collection: TComment[]) =>
+  collection.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+export { groupOffersByCity, sortByDate };

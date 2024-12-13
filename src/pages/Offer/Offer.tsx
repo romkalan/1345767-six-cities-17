@@ -6,13 +6,19 @@ import ReviewsList from '../../components/ReviewsList/ReviewsList.tsx';
 import Map from '../../components/Map/Map.tsx';
 import { TOffer } from '../../types/TOffer.ts';
 import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
+import { TComment } from '../../types/TComment.ts';
 
 type TOfferProps = {
   offerById: TOfferById;
   offersNearby: TOffer[];
+  comments: TComment[];
 };
 
-function Offer({ offerById, offersNearby }: TOfferProps): JSX.Element {
+function Offer({
+  offerById,
+  offersNearby,
+  comments,
+}: TOfferProps): JSX.Element {
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
 
@@ -97,7 +103,7 @@ function Offer({ offerById, offersNearby }: TOfferProps): JSX.Element {
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by
+                    A quiet cozy and picturesque that hides behind a river by
                     the unique lightness of Amsterdam. The building is green and
                     from 18th century.
                   </p>
@@ -110,9 +116,10 @@ function Offer({ offerById, offersNearby }: TOfferProps): JSX.Element {
               </div>
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">
-                  Reviews &middot; <span className="reviews__amount">1</span>
+                  Reviews &middot;{' '}
+                  <span className="reviews__amount">{comments.length}</span>
                 </h2>
-                <ReviewsList />
+                <ReviewsList comments={comments} />
                 <CommentForm />
               </section>
             </div>
