@@ -40,6 +40,7 @@ function App({ offersCount, offers, offerById, comments }: AppProps) {
                 offersNearby={offersNearby}
                 offerById={offerById}
                 comments={comments}
+                authorisationStatus={AuthorizationStatus.Auth}
               />
             }
           />
