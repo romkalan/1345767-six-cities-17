@@ -1,5 +1,5 @@
 import { TOfferById } from '../../types/TOfferById.ts';
-import { RatingStyle } from '../../consts/const.ts';
+import { AuthorizationStatus, RatingStyle } from '../../consts/const.ts';
 import CommentForm from '../../components/CommentForm/CommentForm.tsx';
 import OfferGallery from '../../components/OfferGallery/OfferGallery.tsx';
 import ReviewsList from '../../components/ReviewsList/ReviewsList.tsx';
@@ -12,15 +12,18 @@ type TOfferProps = {
   offerById: TOfferById;
   offersNearby: TOffer[];
   comments: TComment[];
+  authorisationStatus: AuthorizationStatus;
 };
 
 function Offer({
   offerById,
   offersNearby,
   comments,
+  authorisationStatus,
 }: TOfferProps): JSX.Element {
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
+  const isAuthenticated = authorisationStatus === AuthorizationStatus.Auth;
 
   return (
     <div className="page">
@@ -120,7 +123,7 @@ function Offer({
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <ReviewsList comments={comments} />
-                <CommentForm />
+                <CommentForm isAuthenticated={isAuthenticated} />
               </section>
             </div>
           </div>

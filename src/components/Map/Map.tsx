@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import leaflet from 'leaflet';
+import leaflet, { layerGroup, Marker } from 'leaflet';
 import { TOffer } from '../../types/TOffer.ts';
 import useMap from '../../hooks/useMap.ts';
 import 'leaflet/dist/leaflet.css';
@@ -14,13 +14,13 @@ type MapProps = {
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
+  iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
+  iconSize: [30, 40],
   iconAnchor: [20, 40],
 });
 
@@ -32,32 +32,31 @@ function Map({ activeOffer, offers, isNearby }: MapProps): JSX.Element {
 
   useEffect(() => {
     if (map) {
+      const markerLayer = layerGroup().addTo(map);
+
       offers.map(({ location, id }) => {
-        leaflet
-          .marker(
-            {
-              lat: location.latitude,
-              lng: location.longitude,
-            },
-            {
-              icon:
-                activeOffer.id === id ? currentCustomIcon : defaultCustomIcon,
-            },
+        const marker = new Marker({
+          lat: location.latitude,
+          lng: location.longitude,
+        });
+        marker
+          .setIcon(
+            activeOffer.id === id ? currentCustomIcon : defaultCustomIcon,
           )
-          .addTo(map);
+          .addTo(markerLayer);
       });
 
       if (isNearby) {
-        leaflet
-          .marker(
-            {
-              lat: activeOffer.location.latitude,
-              lng: activeOffer.location.longitude,
-            },
-            { icon: currentCustomIcon },
-          )
-          .addTo(map);
+        const marker = new Marker({
+          lat: activeOffer.location.latitude,
+          lng: activeOffer.location.longitude,
+        });
+        marker.setIcon(currentCustomIcon).addTo(markerLayer);
       }
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
   }, [map, offers, activeOffer, isNearby]);
 

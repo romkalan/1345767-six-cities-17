@@ -1,7 +1,13 @@
 import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
 import { RatingStars } from '../../consts/const.ts';
 
-function CommentForm() {
+type CommentFormProps = {
+  isAuthenticated: boolean;
+};
+
+function CommentForm({
+  isAuthenticated,
+}: CommentFormProps): JSX.Element | null {
   const [formData, setFormData] = useState({
     rating: '',
     review: '',
@@ -21,6 +27,10 @@ function CommentForm() {
       throw new Error('Comment is not ready');
     }
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <form
