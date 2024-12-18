@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App/App.tsx';
 import { offerById } from './mocks/offerById.ts';
-import { Settings } from './consts/const.ts';
 import { comments } from './mocks/comments.ts';
 import { Provider } from 'react-redux';
 import { store } from './store';
@@ -14,11 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        offersCount={Settings.OffersCount}
-        offerById={offerById}
-        comments={comments}
-      />
+      <App offerById={offerById} comments={comments} />
     </Provider>
   </React.StrictMode>,
 );

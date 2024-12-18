@@ -1,4 +1,4 @@
-import { TCity } from './TCityName.ts';
+import { TCityName } from './TCityName.ts';
 import { TOffer } from './TOffer.ts';
 
-export type TCityOffers = Record<TCity, TOffer[]>;
+export type TCityOffers = Record<TCityName, TOffer[]>;

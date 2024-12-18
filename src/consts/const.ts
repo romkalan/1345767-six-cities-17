@@ -1,9 +1,5 @@
 import { TCityName } from '../types/TCityName.ts';
 
-const Settings = {
-  OffersCount: 312,
-} as const;
-
 const Cities: TCityName[] = [
   'Paris',
   'Cologne',
@@ -44,7 +40,6 @@ enum AuthorizationStatus {
 }
 
 export {
-  Settings,
   RatingStars,
   Cities,
   DEFAULT_CITY,
