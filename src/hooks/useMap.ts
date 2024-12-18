@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, MutableRefObject } from 'react';
 import leaflet, { Map } from 'leaflet';
-import { City } from '../types/TOffer.ts';
+import { TCity } from '../types/TOffer.ts';
 import { MAP_ATTRIBUTION, MAP_URL } from '../consts/const.ts';
 
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  city: City,
+  city: TCity,
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -29,7 +29,14 @@ function useMap(
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+
+    if (map) {
+      map.setView(
+        { lat: city.location.latitude, lng: city.location.longitude },
+        city.location.zoom,
+      );
+    }
+  }, [mapRef, city, map]);
 
   return map;
 }

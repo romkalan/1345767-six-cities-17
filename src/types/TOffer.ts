@@ -1,4 +1,4 @@
-import { TCityTypes } from './TCityTypes.ts';
+import { TCityName } from './TCityName.ts';
 
 export type Location = {
   latitude: number;
@@ -6,8 +6,8 @@ export type Location = {
   zoom: number;
 };
 
-export type City = {
-  name: TCityTypes;
+export type TCity = {
+  name: TCityName;
   location: Location;
 };
 
@@ -15,7 +15,7 @@ export type TOffer = {
   title: string;
   type: string;
   price: number;
-  city: City;
+  city: TCity;
   location: Location;
   isFavorite: boolean;
   isPremium: boolean;

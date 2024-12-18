@@ -1,4 +1,4 @@
-export type TCityTypes =
+export type TCityName =
   | 'Amsterdam'
   | 'Brussels'
   | 'Cologne'

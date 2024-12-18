@@ -1,20 +1,19 @@
-import { TCityTypes } from '../types/TCityTypes.ts';
-import { City } from '../types/TOffer.ts';
+import { TCityName } from '../types/TCityName.ts';
 
 const Settings = {
   OffersCount: 312,
 } as const;
 
-const Cities: TCityTypes[] = [
-  'Amsterdam',
-  'Brussels',
-  'Cologne',
-  'Dusseldorf',
-  'Hamburg',
+const Cities: TCityName[] = [
   'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
 ];
 
-const DEFAULT_CITY: City | null = null;
+const DEFAULT_CITY: TCityName = 'Paris';
 
 // CONST FOR RATING
 const MAX_STARS_FOR_RATING = 5;

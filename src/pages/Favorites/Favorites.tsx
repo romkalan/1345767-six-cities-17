@@ -2,13 +2,10 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../consts/const.ts';
 import FavoriteCitiesList from '../../components/FavoriteCitiesList/FavoriteCitiesList.tsx';
 import FavoriteEmpty from '../../components/FavoritesEmpty/FavoriteEmpty.tsx';
-import { TOffer } from '../../types/TOffer.ts';
+import { useAppSelector } from '../../hooks/useAppSelector.ts';
 
-type FavoriteProps = {
-  offers: TOffer[];
-};
-
-function Favorites({ offers }: FavoriteProps) {
+function Favorites() {
+  const offers = useAppSelector((state) => state.offers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   switch (favoriteOffers.length) {

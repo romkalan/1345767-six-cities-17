@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 type OfferCardProps = {
   offer: TOffer;
-  setCurrentCard: (offer: TOffer) => void;
+  setCurrentCard: (offer: TOffer | undefined) => void;
   isNearbyOffer: boolean;
 };
 
@@ -23,10 +23,15 @@ function OfferCard({ offer, setCurrentCard, isNearbyOffer }: OfferCardProps) {
     setCurrentCard(offer);
   };
 
+  const handleCardLeave = () => {
+    setCurrentCard(undefined);
+  };
+
   return (
     <article
       className={`${cardClassWrapper}__card place-card`}
       onMouseOver={handleCardOver}
+      onMouseLeave={handleCardLeave}
     >
       {isPremium && (
         <div className="place-card__mark">

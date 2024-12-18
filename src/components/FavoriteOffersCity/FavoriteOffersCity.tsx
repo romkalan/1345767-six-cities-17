@@ -1,10 +1,10 @@
-import { TCityTypes } from '../../types/TCityTypes.ts';
+import { TCityName } from '../../types/TCityName.ts';
 import { TOffer } from '../../types/TOffer.ts';
 import FavoriteOfferCard from '../FavoriteOfferCard/FavoriteOfferCard.tsx';
 
 type FavoriteOffersCityProps = {
   offers: TOffer[];
-  city: TCityTypes;
+  city: TCityName;
 };
 
 function FavoriteOffersCity({ offers, city }: FavoriteOffersCityProps) {

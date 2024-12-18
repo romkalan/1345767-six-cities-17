@@ -6,29 +6,28 @@ import 'leaflet/dist/leaflet.css';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/const.ts';
 import { TOfferById } from '../../types/TOfferById.ts';
 
-type MapProps = {
-  activeOffer: TOffer | TOfferById;
+type TMapProps = {
   offers: TOffer[];
+  activeOffer?: TOffer | TOfferById;
   isNearby?: boolean;
 };
 
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [30, 40],
-  iconAnchor: [20, 40],
+  iconSize: [27, 39],
+  iconAnchor: [27, 39],
 });
 
 const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [30, 40],
-  iconAnchor: [20, 40],
+  iconSize: [27, 39],
+  iconAnchor: [27, 39],
 });
 
-function Map({ activeOffer, offers, isNearby }: MapProps): JSX.Element {
+function Map({ activeOffer, offers, isNearby }: TMapProps): JSX.Element {
   const mapRef = useRef(null);
 
-  const { city } = activeOffer;
-  const map: leaflet.Map | null = useMap(mapRef, city);
+  const map = useMap(mapRef, offers[0].city);
 
   useEffect(() => {
     if (map) {
@@ -41,15 +40,15 @@ function Map({ activeOffer, offers, isNearby }: MapProps): JSX.Element {
         });
         marker
           .setIcon(
-            activeOffer.id === id ? currentCustomIcon : defaultCustomIcon,
+            activeOffer?.id === id ? currentCustomIcon : defaultCustomIcon,
           )
           .addTo(markerLayer);
-      });
+      }, []);
 
-      if (isNearby) {
+      if (isNearby && activeOffer) {
         const marker = new Marker({
-          lat: activeOffer.location.latitude,
-          lng: activeOffer.location.longitude,
+          lat: activeOffer?.location.latitude,
+          lng: activeOffer?.location.longitude,
         });
         marker.setIcon(currentCustomIcon).addTo(markerLayer);
       }
