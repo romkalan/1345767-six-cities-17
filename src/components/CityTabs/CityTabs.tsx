@@ -20,8 +20,6 @@ function CityTabs() {
     dispatch(getOffersByCity(currentCity));
   }, [dispatch, currentCity]);
 
-  console.log(currentCity);
-
   return (
     <div className="tabs">
       <section className="locations container">
