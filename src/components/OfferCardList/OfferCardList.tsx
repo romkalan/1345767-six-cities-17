@@ -3,7 +3,7 @@ import OfferCard from '../OfferCard/OfferCard.tsx';
 
 type OfferCardListProps = {
   offers: TOffer[];
-  setActiveOffer: (offer: TOffer) => void;
+  setActiveOffer: (offer: TOffer | undefined) => void;
   isNearbyOffers: boolean;
 };
 
