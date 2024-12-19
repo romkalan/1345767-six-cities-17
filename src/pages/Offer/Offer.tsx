@@ -6,24 +6,24 @@ import ReviewsList from '../../components/ReviewsList/ReviewsList.tsx';
 import Map from '../../components/Map/Map.tsx';
 import { TOffer } from '../../types/TOffer.ts';
 import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
-import { TComment } from '../../types/TComment.ts';
+import { useAppSelector } from '../../hooks/useAppSelector.ts';
 
 type TOfferProps = {
   offerById: TOfferById;
   offersNearby: TOffer[];
-  comments: TComment[];
   authorisationStatus: AuthorizationStatus;
 };
 
 function Offer({
   offerById,
   offersNearby,
-  comments,
   authorisationStatus,
 }: TOfferProps): JSX.Element {
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
   const isAuthenticated = authorisationStatus === AuthorizationStatus.Auth;
+
+  const comments = useAppSelector((state) => state.comments);
 
   return (
     <div className="page">

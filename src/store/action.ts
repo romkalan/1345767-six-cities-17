@@ -6,3 +6,4 @@ export const getAllOffers = createAction('offers/getAllOffers');
 export const getOffersByCity = createAction<TCityName>(
   'offers/getOffersByCity',
 );
+export const getAllComments = createAction('offers/getCommentsForOffer');
