@@ -5,23 +5,12 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute.tsx';
 import { TOfferById } from '../../types/TOfferById.ts';
 import Layout from '../Layout/Layout.tsx';
 import { offersNearby } from '../../mocks/offers.ts';
-import { TComment } from '../../types/TComment.ts';
-import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
-import { useEffect } from 'react';
-import { getAllOffers } from '../../store/action.ts';
 
 type AppProps = {
   offerById: TOfferById;
-  comments: TComment[];
 };
 
-function App({ offerById, comments }: AppProps) {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getAllOffers());
-  }, [dispatch]);
-
+function App({ offerById }: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -42,7 +31,6 @@ function App({ offerById, comments }: AppProps) {
               <Offer
                 offersNearby={offersNearby}
                 offerById={offerById}
-                comments={comments}
                 authorisationStatus={AuthorizationStatus.Auth}
               />
             }
