@@ -1,4 +1,5 @@
 import { TCityName } from '../types/TCityName.ts';
+import { TSortingType } from '../types/TSortingType.ts';
 
 const Cities: TCityName[] = [
   'Paris',
@@ -9,7 +10,15 @@ const Cities: TCityName[] = [
   'Dusseldorf',
 ];
 
+const SortingTypes: TSortingType[] = [
+  'Popular',
+  'Price: low to high',
+  'Price: high to low',
+  'TopRating',
+];
+
 const DEFAULT_CITY: TCityName = 'Paris';
+const DEFAULT_SORTING: TSortingType = 'Popular';
 
 // CONST FOR RATING
 const MAX_STARS_FOR_RATING = 5;
@@ -42,7 +51,9 @@ enum AuthorizationStatus {
 export {
   RatingStars,
   Cities,
+  SortingTypes,
   DEFAULT_CITY,
+  DEFAULT_SORTING,
   MAX_STARS_FOR_RATING,
   RatingStyle,
   AppRoute,
