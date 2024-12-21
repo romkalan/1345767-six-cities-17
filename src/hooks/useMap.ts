@@ -11,6 +11,15 @@ function useMap(
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
+    if (map) {
+      map.panTo({
+        lat: city.location.latitude,
+        lng: city.location.longitude,
+      });
+    }
+  }, [city, map]);
+
+  useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
