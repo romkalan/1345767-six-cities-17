@@ -6,8 +6,10 @@ import {
   getOffersByCity,
   changeSortingType,
   sortOffers,
+  changeOfferById,
 } from './action.ts';
 import { offers } from '../mocks/offers.ts';
+import { offerById } from '../mocks/offerById.ts';
 import { comments } from '../mocks/comments.ts';
 import { DEFAULT_CITY, DEFAULT_SORTING } from '../consts/const.ts';
 import { TOffer } from '../types/TOffer.ts';
@@ -17,6 +19,7 @@ const initialState = {
   city: DEFAULT_CITY,
   offers: [] as TOffer[],
   offersByCity: [] as TOffer[],
+  offerById: offerById,
   comments: [] as TComment[],
   sortingType: DEFAULT_SORTING,
 };
@@ -36,6 +39,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeSortingType, (state, { payload }) => {
       state.sortingType = payload;
+    })
+    .addCase(changeOfferById, (state, { payload }) => {
+      state.offerById = payload;
     })
     .addCase(sortOffers, (state) => {
       switch (state.sortingType) {
