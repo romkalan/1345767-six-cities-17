@@ -1,4 +1,3 @@
-import { TOfferById } from '../../types/TOfferById.ts';
 import { AuthorizationStatus, RatingStyle } from '../../consts/const.ts';
 import CommentForm from '../../components/CommentForm/CommentForm.tsx';
 import OfferGallery from '../../components/OfferGallery/OfferGallery.tsx';
@@ -9,16 +8,15 @@ import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 
 type TOfferProps = {
-  offerById: TOfferById;
   offersNearby: TOffer[];
   authorisationStatus: AuthorizationStatus;
 };
 
 function Offer({
-  offerById,
   offersNearby,
   authorisationStatus,
 }: TOfferProps): JSX.Element {
+  const offerById = useAppSelector((state) => state.offerById);
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
   const isAuthenticated = authorisationStatus === AuthorizationStatus.Auth;
