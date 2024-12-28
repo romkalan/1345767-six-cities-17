@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { getToken, TToken } from './token.ts';
 
 const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
@@ -10,7 +10,7 @@ const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT,
   });
 
-  api.interceptors.request.use((config: AxiosRequestConfig) => {
+  api.interceptors.request.use((config) => {
     const token: TToken = getToken();
 
     if (token && config.headers) {
@@ -23,4 +23,4 @@ const createAPI = (): AxiosInstance => {
   return api;
 };
 
-export default createAPI;
+export { createAPI };

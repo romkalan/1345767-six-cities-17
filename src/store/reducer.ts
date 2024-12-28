@@ -7,6 +7,7 @@ import {
   changeSortingType,
   sortOffers,
   changeOfferById,
+  isOffersDataLoaded,
 } from './action.ts';
 import { offerById } from '../mocks/offerById.ts';
 import { comments } from '../mocks/comments.ts';
@@ -24,6 +25,7 @@ type InitialState = {
   offerById: TOfferById;
   comments: TComment[];
   sortingType: TSortingType;
+  isOffersDataLoaded: boolean;
 };
 
 const initialState: InitialState = {
@@ -33,6 +35,7 @@ const initialState: InitialState = {
   offerById: offerById,
   comments: [],
   sortingType: DEFAULT_SORTING,
+  isOffersDataLoaded: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -82,6 +85,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getAllComments, (state) => {
       state.comments = comments;
+    })
+    .addCase(isOffersDataLoaded, (state, { payload }) => {
+      state.isOffersDataLoaded = payload;
     });
 });
 

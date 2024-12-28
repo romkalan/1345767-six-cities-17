@@ -17,3 +17,6 @@ export const changeOfferById = createAction<TOfferById>(
 );
 export const sortOffers = createAction('offers/sortOffers');
 export const getAllComments = createAction('offers/getCommentsForOffer');
+export const isOffersDataLoaded = createAction<boolean>(
+  'data/isOffersDataLoaded',
+);

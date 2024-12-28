@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { TAppDispatch, TState } from '../types/TState.ts';
 import { APIRoute } from '../consts/const.ts';
 import { TOffer } from '../types/TOffer.ts';
-import { getAllOffers } from './action.ts';
+import { getAllOffers, isOffersDataLoaded } from './action.ts';
 
 const fetchOffersAction = createAsyncThunk<
   void,
@@ -16,6 +16,7 @@ const fetchOffersAction = createAsyncThunk<
 >('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<TOffer[]>(APIRoute.Offers);
   dispatch(getAllOffers(data));
+  dispatch(isOffersDataLoaded(true));
 });
 
 export { fetchOffersAction };

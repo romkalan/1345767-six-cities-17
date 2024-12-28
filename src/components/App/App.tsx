@@ -4,8 +4,16 @@ import { MainPage, Login, Favorites, Offer, NotFoundPage } from '../../pages';
 import PrivateRoute from '../PrivateRoute/PrivateRoute.tsx';
 import Layout from '../Layout/Layout.tsx';
 import { offersNearby } from '../../mocks/offers.ts';
+import { useAppSelector } from '../../hooks/useAppSelector.ts';
+import LoadingScreen from '../Spinner/LoadingScreen.tsx';
 
 function App() {
+  const isOffersLoaded = useAppSelector((state) => state.isOffersDataLoaded);
+
+  if (!isOffersLoaded) {
+    return <LoadingScreen />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
