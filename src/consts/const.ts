@@ -42,6 +42,14 @@ enum AppRoute {
   Offer = '/offer/:id',
 }
 
+enum APIRoute {
+  Offers = '/offers',
+  FavoriteOffers = '/favorite',
+  Comments = '/comments',
+  LoginData = '/login',
+  LogoutData = '/logout',
+}
+
 enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -57,6 +65,7 @@ export {
   MAX_STARS_FOR_RATING,
   RatingStyle,
   AppRoute,
+  APIRoute,
   AuthorizationStatus,
   MAP_URL,
   MAP_ATTRIBUTION,
