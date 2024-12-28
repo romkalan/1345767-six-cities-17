@@ -8,19 +8,30 @@ import {
   sortOffers,
   changeOfferById,
 } from './action.ts';
-import { offers } from '../mocks/offers.ts';
 import { offerById } from '../mocks/offerById.ts';
 import { comments } from '../mocks/comments.ts';
 import { DEFAULT_CITY, DEFAULT_SORTING } from '../consts/const.ts';
 import { TOffer } from '../types/TOffer.ts';
 import { TComment } from '../types/TComment.ts';
+import { TCityName } from '../types/TCityName.ts';
+import { TOfferById } from '../types/TOfferById.ts';
+import { TSortingType } from '../types/TSortingType.ts';
 
-const initialState = {
+type InitialState = {
+  city: TCityName;
+  offers: TOffer[];
+  offersByCity: TOffer[];
+  offerById: TOfferById;
+  comments: TComment[];
+  sortingType: TSortingType;
+};
+
+const initialState: InitialState = {
   city: DEFAULT_CITY,
-  offers: [] as TOffer[],
-  offersByCity: [] as TOffer[],
+  offers: [],
+  offersByCity: [],
   offerById: offerById,
-  comments: [] as TComment[],
+  comments: [],
   sortingType: DEFAULT_SORTING,
 };
 
@@ -29,8 +40,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeCity, (state, { payload }) => {
       state.city = payload;
     })
-    .addCase(getAllOffers, (state) => {
-      state.offers = offers;
+    .addCase(getAllOffers, (state, { payload }) => {
+      state.offers = payload;
     })
     .addCase(getOffersByCity, (state, { payload }) => {
       state.offersByCity = state.offers.filter(
