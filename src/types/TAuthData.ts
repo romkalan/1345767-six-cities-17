@@ -1,4 +1,10 @@
 export type TAuthData = {
-  login: string;
+  email: string;
   password: string;
+};
+
+export type TResponseUserData = {
+  email: string;
+  token: string;
+  avatarUrl: string;
 };

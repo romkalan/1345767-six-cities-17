@@ -1,11 +1,38 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../consts/const.ts';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../consts/const.ts';
 import { offers } from '../../mocks/offers.ts';
+import { useAppSelector } from '../../hooks/useAppSelector.ts';
+import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
+import { logoutAction } from '../../store/api-actions.ts';
+import { getUserData } from '../../services/token.ts';
 
 function Header() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { email, avatarUrl } = getUserData();
+
   const favoriteOffersCount = offers?.filter(
     (offer) => offer.isFavorite,
   ).length;
+
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus,
+  );
+
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
+  const avatarStyle = isAuth
+    ? { backgroundImage: `url(${avatarUrl})`, borderRadius: '50%' }
+    : undefined;
+
+  const handleSignOut = () => {
+    if (isAuth) {
+      dispatch(logoutAction());
+    } else {
+      navigate(AppRoute.Login);
+    }
+  };
 
   return (
     <header className="header">
@@ -29,18 +56,23 @@ function Header() {
                   className="header__nav-link header__nav-link--profile"
                   to={AppRoute.Favorites}
                 >
-                  <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
-                  </span>
-                  <span className="header__favorite-count">
-                    {favoriteOffersCount}
-                  </span>
+                  <div
+                    className="header__avatar-wrapper user__avatar-wrapper"
+                    style={avatarStyle}
+                  />
+                  <span className="header__user-name user__name">{email}</span>
+                  {isAuth && (
+                    <span className="header__favorite-count">
+                      {favoriteOffersCount}
+                    </span>
+                  )}
                 </Link>
               </li>
-              <li className="header__nav-item">
-                <Link className="header__nav-link" to={AppRoute.Login}>
-                  <span className="header__signout">Sign out</span>
+              <li className="header__nav-item" onClick={handleSignOut}>
+                <Link className="header__nav-link" to="#">
+                  <span className="header__signout">
+                    {isAuth ? 'Sign out' : 'Sign in'}
+                  </span>
                 </Link>
               </li>
             </ul>

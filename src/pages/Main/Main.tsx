@@ -6,15 +6,22 @@ import classNames from 'classnames';
 import { useEffect } from 'react';
 import { sortOffers } from '../../store/action.ts';
 import { useDispatch } from 'react-redux';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen.tsx';
 
 function MainPage() {
   const offersByCity = useAppSelector((state) => state.offersByCity);
   const currentSortingType = useAppSelector((state) => state.sortingType);
+  const isOffersLoaded = useAppSelector((state) => state.isOffersDataLoaded);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(sortOffers());
   }, [dispatch, currentSortingType, offersByCity]);
+
+  if (!isOffersLoaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page page--gray page--main">

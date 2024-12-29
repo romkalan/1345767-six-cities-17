@@ -6,6 +6,9 @@ import Map from '../../components/Map/Map.tsx';
 import { TOffer } from '../../types/TOffer.ts';
 import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
+import { getAllComments } from '../../store/action.ts';
 
 type TOfferProps = {
   offersNearby: TOffer[];
@@ -16,12 +19,18 @@ function Offer({
   offersNearby,
   authorisationStatus,
 }: TOfferProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
   const offerById = useAppSelector((state) => state.offerById);
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
   const isAuthenticated = authorisationStatus === AuthorizationStatus.Auth;
 
   const comments = useAppSelector((state) => state.comments);
+
+  useEffect(() => {
+    dispatch(getAllComments());
+  }, [dispatch]);
 
   return (
     <div className="page">
