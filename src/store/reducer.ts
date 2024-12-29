@@ -8,10 +8,15 @@ import {
   sortOffers,
   changeOfferById,
   isOffersDataLoaded,
+  requireAuthorization,
 } from './action.ts';
 import { offerById } from '../mocks/offerById.ts';
 import { comments } from '../mocks/comments.ts';
-import { DEFAULT_CITY, DEFAULT_SORTING } from '../consts/const.ts';
+import {
+  AuthorizationStatus,
+  DEFAULT_CITY,
+  DEFAULT_SORTING,
+} from '../consts/const.ts';
 import { TOffer } from '../types/TOffer.ts';
 import { TComment } from '../types/TComment.ts';
 import { TCityName } from '../types/TCityName.ts';
@@ -26,6 +31,7 @@ type InitialState = {
   comments: TComment[];
   sortingType: TSortingType;
   isOffersDataLoaded: boolean;
+  authorizationStatus: AuthorizationStatus;
 };
 
 const initialState: InitialState = {
@@ -36,6 +42,7 @@ const initialState: InitialState = {
   comments: [],
   sortingType: DEFAULT_SORTING,
   isOffersDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -85,6 +92,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getAllComments, (state) => {
       state.comments = comments;
+    })
+    .addCase(requireAuthorization, (state, { payload }) => {
+      state.authorizationStatus = payload;
     })
     .addCase(isOffersDataLoaded, (state, { payload }) => {
       state.isOffersDataLoaded = payload;
