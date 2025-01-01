@@ -41,8 +41,6 @@ export const offerById: TOfferById = {
     avatarUrl: 'https://url-to-image/image.png',
     isPro: false,
   },
-  images: [
-    'https://avatars.mds.yandex.net/get-ydo/1540809/2a0000016a39e4c1f530ba5562a9d93c175f/diploma',
-  ],
+  images: [],
   maxAdults: 4,
 };

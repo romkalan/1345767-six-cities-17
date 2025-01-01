@@ -2,16 +2,17 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   changeCity,
   getAllOffers,
-  getAllComments,
+  getOfferComments,
   getOffersByCity,
   changeSortingType,
   sortOffers,
-  changeOfferById,
   isOffersDataLoaded,
   requireAuthorization,
+  getOfferById,
+  changeCurrentOfferId,
+  isOfferByIdDataLoaded,
+  getOffersNearby,
 } from './action.ts';
-import { offerById } from '../mocks/offerById.ts';
-import { comments } from '../mocks/comments.ts';
 import {
   AuthorizationStatus,
   DEFAULT_CITY,
@@ -22,16 +23,20 @@ import { TComment } from '../types/TComment.ts';
 import { TCityName } from '../types/TCityName.ts';
 import { TOfferById } from '../types/TOfferById.ts';
 import { TSortingType } from '../types/TSortingType.ts';
+import { offerById } from '../mocks/offerById.ts';
 
 type InitialState = {
   city: TCityName;
   offers: TOffer[];
   offersByCity: TOffer[];
   offerById: TOfferById;
+  offersNearby: TOffer[];
   comments: TComment[];
   sortingType: TSortingType;
   isOffersDataLoaded: boolean;
+  isOfferByIdDataLoaded: boolean;
   authorizationStatus: AuthorizationStatus;
+  currentOfferId: string;
 };
 
 const initialState: InitialState = {
@@ -39,10 +44,13 @@ const initialState: InitialState = {
   offers: [],
   offersByCity: [],
   offerById: offerById,
+  offersNearby: [],
   comments: [],
   sortingType: DEFAULT_SORTING,
   isOffersDataLoaded: false,
+  isOfferByIdDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
+  currentOfferId: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -61,8 +69,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeSortingType, (state, { payload }) => {
       state.sortingType = payload;
     })
-    .addCase(changeOfferById, (state, { payload }) => {
+    .addCase(getOfferById, (state, { payload }) => {
       state.offerById = payload;
+    })
+    .addCase(getOffersNearby, (state, { payload }) => {
+      state.offersNearby = payload;
+    })
+    .addCase(changeCurrentOfferId, (state, { payload }) => {
+      state.currentOfferId = payload;
     })
     .addCase(sortOffers, (state) => {
       switch (state.sortingType) {
@@ -90,14 +104,17 @@ const reducer = createReducer(initialState, (builder) => {
           break;
       }
     })
-    .addCase(getAllComments, (state) => {
-      state.comments = comments;
+    .addCase(getOfferComments, (state, { payload }) => {
+      state.comments = payload;
     })
     .addCase(requireAuthorization, (state, { payload }) => {
       state.authorizationStatus = payload;
     })
     .addCase(isOffersDataLoaded, (state, { payload }) => {
       state.isOffersDataLoaded = payload;
+    })
+    .addCase(isOfferByIdDataLoaded, (state, { payload }) => {
+      state.isOfferByIdDataLoaded = payload;
     });
 });
 

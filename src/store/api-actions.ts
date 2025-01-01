@@ -1,15 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { TAppDispatch, TState } from '../types/TState.ts';
 import { APIRoute, AuthorizationStatus } from '../consts/const.ts';
+import { TAppDispatch, TState } from '../types/TState.ts';
+import { TAuthData, TResponseUserData } from '../types/TAuthData.ts';
 import { TOffer } from '../types/TOffer.ts';
+import { TOfferById } from '../types/TOfferById.ts';
+import { dropUserData, saveUserData } from '../services/token.ts';
 import {
   getAllOffers,
+  getOfferById,
+  getOfferComments,
+  getOffersNearby,
+  isOfferByIdDataLoaded,
   isOffersDataLoaded,
   requireAuthorization,
 } from './action.ts';
-import { TAuthData, TResponseUserData } from '../types/TAuthData.ts';
-import { dropUserData, saveUserData } from '../services/token.ts';
+import { TComment } from '../types/TComment.ts';
 
 const fetchOffersAction = createAsyncThunk<
   void,
@@ -57,4 +63,55 @@ const logoutAction = createAsyncThunk<
   dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
 });
 
-export { fetchOffersAction, checkAuthAction, loginAction, logoutAction };
+const fetchOfferById = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }
+>('data/fetchOfferById', async (_arg, { dispatch, getState, extra: api }) => {
+  const state = getState();
+  const { data } = await api.get<TOfferById>(
+    `${APIRoute.Offers}/${state.currentOfferId}`,
+  );
+  dispatch(getOfferById(data));
+  dispatch(isOfferByIdDataLoaded(true));
+});
+
+const fetchOffersNearby = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }
+>(
+  'data/fetchOffersNearby',
+  async (_arg, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const { data } = await api.get<TOffer[]>(
+      `${APIRoute.Offers}/${state.currentOfferId}/nearby`,
+    );
+    dispatch(getOffersNearby(data));
+  },
+);
+
+const fetchOfferComments = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }
+>(
+  'data/fetchOfferComments',
+  async (_arg, { dispatch, getState, extra: api }) => {
+    const state = getState();
+    const { data } = await api.get<TComment[]>(
+      `${APIRoute.Comments}/${state.currentOfferId}`,
+    );
+    dispatch(getOfferComments(data));
+  },
+);
+
+export {
+  fetchOffersAction,
+  fetchOfferById,
+  fetchOffersNearby,
+  fetchOfferComments,
+  checkAuthAction,
+  loginAction,
+  logoutAction,
+};

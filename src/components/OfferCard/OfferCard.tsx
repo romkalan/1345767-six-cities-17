@@ -1,10 +1,6 @@
 import { MAX_STARS_FOR_RATING } from '../../consts/const.ts';
 import { TOffer } from '../../types/TOffer.ts';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { changeOfferById } from '../../store/action.ts';
-import { TOfferById } from '../../types/TOfferById.ts';
-import { offerById } from '../../mocks/offerById.ts';
 
 type OfferCardProps = {
   offer: TOffer;
@@ -23,10 +19,7 @@ function OfferCard({ offer, setCurrentCard, isNearbyOffer }: OfferCardProps) {
     ? 'near-places__image'
     : 'cities__image';
 
-  const dispatch = useDispatch();
-
-  const handleCardOver = (item: TOfferById) => {
-    dispatch(changeOfferById(item));
+  const handleCardOver = () => {
     setCurrentCard(offer);
   };
 
@@ -37,7 +30,7 @@ function OfferCard({ offer, setCurrentCard, isNearbyOffer }: OfferCardProps) {
   return (
     <article
       className={`${cardClassWrapper}__card place-card`}
-      onMouseOver={() => handleCardOver(offerById)}
+      onMouseOver={handleCardOver}
       onMouseLeave={handleCardLeave}
     >
       {isPremium && (
