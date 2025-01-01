@@ -3,50 +3,48 @@ import CommentForm from '../../components/CommentForm/CommentForm.tsx';
 import OfferGallery from '../../components/OfferGallery/OfferGallery.tsx';
 import ReviewsList from '../../components/ReviewsList/ReviewsList.tsx';
 import Map from '../../components/Map/Map.tsx';
-import { TOffer } from '../../types/TOffer.ts';
 import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
-import { getAllComments } from '../../store/action.ts';
+import {
+  fetchOfferById,
+  fetchOfferComments,
+  fetchOffersNearby,
+} from '../../store/api-actions.ts';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen.tsx';
 
-type TOfferProps = {
-  offersNearby: TOffer[];
-  authorisationStatus: AuthorizationStatus;
-};
-
-function Offer({
-  offersNearby,
-  authorisationStatus,
-}: TOfferProps): JSX.Element {
+function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const offerById = useAppSelector((state) => state.offerById);
+  const isOfferLoaded = useAppSelector((state) => state.isOfferByIdDataLoaded);
+  const offersNearby = useAppSelector((state) => state.offersNearby);
+  const comments = useAppSelector((state) => state.comments);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus,
+  );
+
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
-  const isAuthenticated = authorisationStatus === AuthorizationStatus.Auth;
-
-  const comments = useAppSelector((state) => state.comments);
+  const isAuthenticated = authorizationStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
-    dispatch(getAllComments());
-  }, [dispatch]);
+    dispatch(fetchOfferById());
+    dispatch(fetchOffersNearby());
+    dispatch(fetchOfferComments());
+  }, [dispatch, offerById, isOfferLoaded, isAuthenticated]);
+
+  if (!isOfferLoaded) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page">
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img
-                  className="offer__image"
-                  src="../../../markup/img/room.jpg"
-                  alt="Photo studio"
-                />
-              </div>
-              <OfferGallery images={images.slice(0, 6)}></OfferGallery>
-            </div>
+            <OfferGallery images={images.slice(0, 6)}></OfferGallery>
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
