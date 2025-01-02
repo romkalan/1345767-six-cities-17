@@ -7,6 +7,7 @@ import { TOffer } from '../types/TOffer.ts';
 import { TOfferById } from '../types/TOfferById.ts';
 import { dropUserData, saveUserData } from '../services/token.ts';
 import {
+  addNewComment,
   getAllOffers,
   getOfferById,
   getOfferComments,
@@ -106,11 +107,37 @@ const fetchOfferComments = createAsyncThunk<
   },
 );
 
+const postNewComment = createAsyncThunk<
+  void,
+  TComment,
+  { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }
+>(
+  'data/postNewComment',
+  async (
+    { id, date, user, comment, rating },
+    { dispatch, getState, extra: api },
+  ) => {
+    const state = getState();
+    const { data } = await api.post<TComment>(
+      `${APIRoute.Comments}/${state.currentOfferId}`,
+      {
+        id,
+        date,
+        user,
+        comment,
+        rating,
+      },
+    );
+    dispatch(addNewComment(data));
+  },
+);
+
 export {
   fetchOffersAction,
   fetchOfferById,
   fetchOffersNearby,
   fetchOfferComments,
+  postNewComment,
   checkAuthAction,
   loginAction,
   logoutAction,

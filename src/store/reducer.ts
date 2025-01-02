@@ -12,6 +12,7 @@ import {
   changeCurrentOfferId,
   isOfferByIdDataLoaded,
   getOffersNearby,
+  addNewComment,
 } from './action.ts';
 import {
   AuthorizationStatus,
@@ -106,6 +107,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(getOfferComments, (state, { payload }) => {
       state.comments = payload;
+    })
+    .addCase(addNewComment, (state, { payload }) => {
+      state.comments.push(payload);
     })
     .addCase(requireAuthorization, (state, { payload }) => {
       state.authorizationStatus = payload;

@@ -16,6 +16,7 @@ export const getOffersNearby = createAction<TOffer[]>('offers/getOffersNearby');
 export const getOfferComments = createAction<TComment[]>(
   'offers/getCommentsForOffer',
 );
+export const addNewComment = createAction<TComment>('offers/addNewComment');
 export const changeSortingType = createAction<TSortingType>(
   'offers/changeSortingType',
 );
