@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, Fragment } from 'react';
+import { useState, ChangeEvent, FormEvent, Fragment, useRef } from 'react';
 import { RatingStars } from '../../consts/const.ts';
 
 type CommentFormProps = {
@@ -8,6 +8,9 @@ type CommentFormProps = {
 function CommentForm({
   isAuthenticated,
 }: CommentFormProps): JSX.Element | null {
+  const commentRef = useRef<HTMLTextAreaElement | null>(null);
+  const ratingRef = useRef<HTMLInputElement | null>(null);
+
   const [formData, setFormData] = useState({
     rating: '',
     review: '',
@@ -23,8 +26,12 @@ function CommentForm({
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (!isButtonFormDisabled) {
-      throw new Error('Comment is not ready');
+    if (
+      !isButtonFormDisabled &&
+      commentRef.current !== null &&
+      ratingRef.current !== null
+    ) {
+      throw Error('comment not allowed');
     }
   };
 
@@ -46,6 +53,7 @@ function CommentForm({
         {RatingStars.map((rating) => (
           <Fragment key={rating}>
             <input
+              ref={ratingRef}
               className="form__rating-input visually-hidden"
               name="rating"
               value={rating}
@@ -66,6 +74,7 @@ function CommentForm({
         ))}
       </div>
       <textarea
+        ref={commentRef}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
