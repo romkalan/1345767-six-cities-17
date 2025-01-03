@@ -6,6 +6,7 @@ import { MAP_ATTRIBUTION, MAP_URL } from '../consts/const.ts';
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
   city: TCity,
+  isNearby?: boolean,
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -27,6 +28,7 @@ function useMap(
           lng: city.location.longitude,
         },
         zoom: city.location.zoom,
+        scrollWheelZoom: !isNearby,
       });
 
       leaflet
@@ -45,7 +47,7 @@ function useMap(
         city.location.zoom,
       );
     }
-  }, [mapRef, city, map]);
+  }, [mapRef, city, map, isNearby]);
 
   return map;
 }
