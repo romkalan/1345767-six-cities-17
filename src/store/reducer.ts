@@ -24,7 +24,6 @@ import { TComment } from '../types/TComment.ts';
 import { TCityName } from '../types/TCityName.ts';
 import { TOfferById } from '../types/TOfferById.ts';
 import { TSortingType } from '../types/TSortingType.ts';
-import { offerById } from '../mocks/offerById.ts';
 
 type InitialState = {
   city: TCityName;
@@ -44,7 +43,7 @@ const initialState: InitialState = {
   city: DEFAULT_CITY,
   offers: [],
   offersByCity: [],
-  offerById: offerById,
+  offerById: {} as TOfferById,
   offersNearby: [],
   comments: [],
   sortingType: DEFAULT_SORTING,

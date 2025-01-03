@@ -1,41 +1,50 @@
-import { useState, ChangeEvent, FormEvent, Fragment, useRef } from 'react';
-import { RatingStars } from '../../consts/const.ts';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { AuthorizationStatus, RatingStars } from '../../consts/const.ts';
+import { postNewComment } from '../../store/api-actions.ts';
+import { useParams } from 'react-router-dom';
+import { TCommentData } from '../../types/TComment.ts';
+import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
+import { useAppSelector } from '../../hooks/useAppSelector.ts';
 
-type CommentFormProps = {
-  isAuthenticated: boolean;
-};
+const initialFormState: TCommentData = { offerId: '', comment: '', rating: 0 };
 
-function CommentForm({
-  isAuthenticated,
-}: CommentFormProps): JSX.Element | null {
-  const commentRef = useRef<HTMLTextAreaElement | null>(null);
-  const ratingRef = useRef<HTMLInputElement | null>(null);
+function CommentForm(): JSX.Element | null {
+  const dispatch = useAppDispatch();
+  const { id: offerId } = useParams();
+  const [formState, setFormState] = useState<TCommentData>(initialFormState);
+  const authorizationStatus = useAppSelector(
+    (state) => state.authorizationStatus,
+  );
 
-  const [formData, setFormData] = useState({
-    rating: '',
-    review: '',
-  });
-  const isButtonFormDisabled = !formData.review;
+  const isButtonFormDisabled = !formState.comment || !formState.rating;
 
-  const handleFieldChange = (
-    evt: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>,
+  const handleFormChange = (
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
+    setFormState({
+      ...formState,
+      [evt.target.name]: evt.target.value,
+    });
   };
 
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (
-      !isButtonFormDisabled &&
-      commentRef.current !== null &&
-      ratingRef.current !== null
-    ) {
-      throw Error('comment not allowed');
+
+    if (!offerId) {
+      return;
     }
+
+    const commentData: TCommentData = {
+      offerId,
+      comment: formState.comment,
+      rating: +formState.rating,
+    };
+
+    setFormState(initialFormState);
+    dispatch(postNewComment(commentData));
   };
 
-  if (!isAuthenticated) {
+  if (authorizationStatus !== AuthorizationStatus.Auth) {
     return null;
   }
 
@@ -50,19 +59,19 @@ function CommentForm({
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {RatingStars.map((rating) => (
-          <Fragment key={rating}>
+        {RatingStars.map((number) => (
+          <Fragment key={number}>
             <input
-              ref={ratingRef}
               className="form__rating-input visually-hidden"
               name="rating"
-              value={rating}
-              id={`${rating}-stars`}
+              checked={number === +formState.rating}
+              value={number}
+              id={`${number}-stars`}
               type="radio"
-              onChange={handleFieldChange}
+              onChange={handleFormChange}
             />
             <label
-              htmlFor={`${rating}-stars`}
+              htmlFor={`${number}-stars`}
               className="reviews__rating-label form__rating-label"
               title="perfect"
             >
@@ -74,13 +83,12 @@ function CommentForm({
         ))}
       </div>
       <textarea
-        ref={commentRef}
         className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
+        id="comment"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        value={formData.review}
-        onChange={handleFieldChange}
+        value={formState.comment}
+        onChange={handleFormChange}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

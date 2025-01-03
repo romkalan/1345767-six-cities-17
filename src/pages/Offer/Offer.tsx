@@ -1,4 +1,4 @@
-import { AuthorizationStatus, RatingStyle } from '../../consts/const.ts';
+import { RatingStyle } from '../../consts/const.ts';
 import CommentForm from '../../components/CommentForm/CommentForm.tsx';
 import OfferGallery from '../../components/OfferGallery/OfferGallery.tsx';
 import ReviewsList from '../../components/ReviewsList/ReviewsList.tsx';
@@ -13,6 +13,7 @@ import {
   fetchOffersNearby,
 } from '../../store/api-actions.ts';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen.tsx';
+import { useParams } from 'react-router-dom';
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,19 +22,19 @@ function Offer(): JSX.Element {
   const isOfferLoaded = useAppSelector((state) => state.isOfferByIdDataLoaded);
   const offersNearby = useAppSelector((state) => state.offersNearby);
   const comments = useAppSelector((state) => state.comments);
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus,
-  );
+
+  const { id } = useParams();
 
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
-  const isAuthenticated = authorizationStatus === AuthorizationStatus.Auth;
 
   useEffect(() => {
-    dispatch(fetchOfferById());
-    dispatch(fetchOffersNearby());
-    dispatch(fetchOfferComments());
-  }, [dispatch, offerById, isOfferLoaded, isAuthenticated]);
+    if (id) {
+      dispatch(fetchOfferById(id));
+      dispatch(fetchOffersNearby(id));
+      dispatch(fetchOfferComments(id));
+    }
+  }, [dispatch, id]);
 
   if (!isOfferLoaded) {
     return <LoadingScreen />;
@@ -128,7 +129,7 @@ function Offer(): JSX.Element {
                   <span className="reviews__amount">{comments.length}</span>
                 </h2>
                 <ReviewsList comments={comments} />
-                <CommentForm isAuthenticated={isAuthenticated} />
+                <CommentForm />
               </section>
             </div>
           </div>

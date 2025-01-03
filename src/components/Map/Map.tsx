@@ -26,8 +26,9 @@ const currentCustomIcon = leaflet.icon({
 
 function Map({ activeOffer, offers, isNearby }: TMapProps): JSX.Element {
   const mapRef = useRef(null);
+  const city = activeOffer?.city || offers[0].city;
 
-  const map = useMap(mapRef, offers[0].city);
+  const map = useMap(mapRef, city, isNearby);
 
   useEffect(() => {
     if (map) {
