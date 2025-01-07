@@ -43,6 +43,13 @@ const createAPI = (): AxiosInstance => {
     },
   );
 
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<{ error: string }>) => {
+      throw error;
+    },
+  );
+
   return api;
 };
 
