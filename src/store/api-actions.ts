@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AuthorizationStatus } from '../consts/const.ts';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../consts/const.ts';
 import { TAppDispatch, TState } from '../types/TState.ts';
 import { TAuthData, TResponseUserData } from '../types/TAuthData.ts';
 import { TOffer } from '../types/TOffer.ts';
@@ -14,6 +14,7 @@ import {
   getOffersNearby,
   isOfferByIdDataLoaded,
   isOffersDataLoaded,
+  redirectToRoute,
   requireAuthorization,
 } from './action.ts';
 import { TComment, TCommentData } from '../types/TComment.ts';
@@ -52,6 +53,7 @@ const loginAction = createAsyncThunk<
   });
   saveUserData(data);
   dispatch(requireAuthorization(AuthorizationStatus.Auth));
+  dispatch(redirectToRoute(AppRoute.Root));
 });
 
 const logoutAction = createAsyncThunk<
