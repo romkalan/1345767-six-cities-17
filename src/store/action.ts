@@ -3,8 +3,10 @@ import { TCityName } from '../types/TCityName.ts';
 import { TSortingType } from '../types/TSortingType.ts';
 import { TOfferById } from '../types/TOfferById.ts';
 import { TOffer } from '../types/TOffer.ts';
-import { AuthorizationStatus } from '../consts/const.ts';
+import { AppRoute, AuthorizationStatus } from '../consts/const.ts';
 import { TComment } from '../types/TComment.ts';
+
+export const redirectToRoute = createAction<AppRoute>('offer/redirectToRoute');
 
 export const changeCity = createAction<TCityName>('offers/changeCity');
 export const getAllOffers = createAction<TOffer[]>('offers/getAllOffers');
