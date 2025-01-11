@@ -7,6 +7,7 @@ import axios, {
 import { getUserData } from './token.ts';
 import { StatusCodes } from 'http-status-codes';
 import { TResponseUserData } from '../types/TAuthData.ts';
+import { toast } from 'react-toastify';
 
 const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
@@ -36,16 +37,11 @@ const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{ error: string }>) => {
+    (error: AxiosError<TErrorMessage>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        throw error;
+        const errorMessage = error.response.data;
+        toast.warn(errorMessage.message);
       }
-    },
-  );
-
-  api.interceptors.response.use(
-    (response) => response,
-    (error: AxiosError<{ error: string }>) => {
       throw error;
     },
   );

@@ -33,3 +33,5 @@ export const isOfferByIdDataLoaded = createAction<boolean>(
 export const requireAuthorization = createAction<AuthorizationStatus>(
   'user/requireAuthorization',
 );
+
+export const setError = createAction<string | null>('data/setError');
