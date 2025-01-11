@@ -1,4 +1,4 @@
-type TErrorMessage = {
+export type TErrorMessage = {
   type: string;
   message: string;
 };

@@ -8,6 +8,7 @@ import { getUserData } from './token.ts';
 import { StatusCodes } from 'http-status-codes';
 import { TResponseUserData } from '../types/TAuthData.ts';
 import { toast } from 'react-toastify';
+import {TErrorMessage} from '../types/TErrorMessage.ts';
 
 const BACKEND_URL = 'https://16.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
