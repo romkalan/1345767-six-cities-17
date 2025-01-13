@@ -27,6 +27,7 @@ function Offer(): JSX.Element {
 
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
+  const offersNearbyFixedCount = offersNearby.slice(0, 3);
 
   useEffect(() => {
     if (id) {
@@ -143,7 +144,7 @@ function Offer(): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <OfferCardList
-              offers={offersNearby}
+              offers={offersNearbyFixedCount}
               setActiveOffer={() => {}}
               isNearbyOffers
             />
