@@ -13,7 +13,7 @@ function CommentForm(): JSX.Element | null {
   const { id: offerId } = useParams();
   const [formState, setFormState] = useState<TCommentData>(initialFormState);
   const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus,
+    (state) => state.USER.authorizationStatus,
   );
 
   const isButtonFormDisabled = !formState.comment || !formState.rating;

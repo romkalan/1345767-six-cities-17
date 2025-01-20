@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 
 function EmptyCity() {
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector((state) => state.OFFER.city);
 
   return (
     <div className="cities__places-container cities__places-container--empty container">

@@ -5,14 +5,11 @@ import PlacesSorting from '../PlacesSorting/PlacesSorting.tsx';
 import Map from '../Map/Map.tsx';
 import { useEffect, useState } from 'react';
 import { TOffer } from '../../types/TOffer.ts';
-import {
-  changeCurrentOfferId,
-  isOfferByIdDataLoaded,
-} from '../../store/action.ts';
+import { changeCurrentOfferId } from '../../store/offersData/offersData.ts';
 
 function FilledCity() {
-  const city = useAppSelector((state) => state.city);
-  const offersByCity = useAppSelector((state) => state.offersByCity);
+  const city = useAppSelector((state) => state.OFFER.city);
+  const offersByCity = useAppSelector((state) => state.OFFER.offersByCity);
   const dispatch = useAppDispatch();
 
   const [activeOffer, setActiveOffer] = useState<TOffer>();
@@ -20,7 +17,7 @@ function FilledCity() {
   useEffect(() => {
     if (activeOffer) {
       dispatch(changeCurrentOfferId(activeOffer.id));
-      dispatch(isOfferByIdDataLoaded(false));
+      // dispatch(isOfferByIdDataLoaded(false));
     }
   }, [dispatch, activeOffer]);
 

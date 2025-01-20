@@ -18,10 +18,12 @@ import { useParams } from 'react-router-dom';
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const offerById = useAppSelector((state) => state.offerById);
-  const isOfferLoaded = useAppSelector((state) => state.isOfferByIdDataLoaded);
-  const offersNearby = useAppSelector((state) => state.offersNearby);
-  const comments = useAppSelector((state) => state.comments);
+  const offerById = useAppSelector((state) => state.OFFER.offerById);
+  const isOfferLoaded = useAppSelector(
+    (state) => state.OFFER.isOfferByIdDataLoaded,
+  );
+  const offersNearby = useAppSelector((state) => state.OFFER.offersNearby);
+  const comments = useAppSelector((state) => state.COMMENTS.comments);
 
   const { id } = useParams();
 

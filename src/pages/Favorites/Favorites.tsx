@@ -5,7 +5,7 @@ import FavoriteEmpty from '../../components/FavoritesEmpty/FavoriteEmpty.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 
 function Favorites() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.OFFER.offers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   switch (favoriteOffers.length) {
