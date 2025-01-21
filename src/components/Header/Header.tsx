@@ -17,7 +17,7 @@ function Header() {
   ).length;
 
   const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus,
+    (state) => state.USER.authorizationStatus,
   );
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;

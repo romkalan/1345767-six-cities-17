@@ -4,15 +4,15 @@ import classNames from 'classnames';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import { TCityName } from '../../types/TCityName.ts';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
+import { useEffect } from 'react';
 import {
   changeCity,
   changeSortingType,
   getOffersByCity,
-} from '../../store/action.ts';
-import { useEffect } from 'react';
+} from '../../store/offersData/offersData.ts';
 
 function CityTabs() {
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector((state) => state.OFFER.city);
 
   const dispatch = useAppDispatch();
 
