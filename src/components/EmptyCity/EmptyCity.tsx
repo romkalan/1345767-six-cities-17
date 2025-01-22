@@ -1,7 +1,8 @@
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
+import { getCurrentCityName } from '../../store/offersData/selectors.ts';
 
 function EmptyCity() {
-  const currentCity = useAppSelector((state) => state.OFFER.city);
+  const currentCity = useAppSelector(getCurrentCityName);
 
   return (
     <div className="cities__places-container cities__places-container--empty container">

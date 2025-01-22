@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { TCommentData } from '../../types/TComment.ts';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
+import { getAuthorizationStatus } from '../../store/userData/selectors.ts';
 
 const initialFormState: TCommentData = { offerId: '', comment: '', rating: 0 };
 
@@ -12,9 +13,7 @@ function CommentForm(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const { id: offerId } = useParams();
   const [formState, setFormState] = useState<TCommentData>(initialFormState);
-  const authorizationStatus = useAppSelector(
-    (state) => state.USER.authorizationStatus,
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const isButtonFormDisabled = !formState.comment || !formState.rating;
 

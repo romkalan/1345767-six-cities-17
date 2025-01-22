@@ -5,6 +5,7 @@ import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
 import { logoutAction } from '../../store/api-actions.ts';
 import { getUserData } from '../../services/token.ts';
+import { getAuthorizationStatus } from '../../store/userData/selectors.ts';
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -16,9 +17,7 @@ function Header() {
     (offer) => offer.isFavorite,
   ).length;
 
-  const authorizationStatus = useAppSelector(
-    (state) => state.USER.authorizationStatus,
-  );
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 

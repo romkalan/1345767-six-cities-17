@@ -6,10 +6,14 @@ import Map from '../Map/Map.tsx';
 import { useEffect, useState } from 'react';
 import { TOffer } from '../../types/TOffer.ts';
 import { changeCurrentOfferId } from '../../store/offersData/offersData.ts';
+import {
+  getCurrentCityName,
+  getOffersByCity,
+} from '../../store/offersData/selectors.ts';
 
 function FilledCity() {
-  const city = useAppSelector((state) => state.OFFER.city);
-  const offersByCity = useAppSelector((state) => state.OFFER.offersByCity);
+  const city = useAppSelector(getCurrentCityName);
+  const offersByCity = useAppSelector(getOffersByCity);
   const dispatch = useAppDispatch();
 
   const [activeOffer, setActiveOffer] = useState<TOffer>();

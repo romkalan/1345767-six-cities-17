@@ -7,13 +7,16 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen.tsx';
 import { sortOffers } from '../../store/offersData/offersData.ts';
+import {
+  getCurrentSortingType,
+  getOffersByCity,
+  getOffersLoadedStatus,
+} from '../../store/offersData/selectors.ts';
 
 function MainPage() {
-  const offersByCity = useAppSelector((state) => state.OFFER.offersByCity);
-  const currentSortingType = useAppSelector((state) => state.OFFER.sortingType);
-  const isOffersLoaded = useAppSelector(
-    (state) => state.OFFER.isOffersDataLoaded,
-  );
+  const offersByCity = useAppSelector(getOffersByCity);
+  const currentSortingType = useAppSelector(getCurrentSortingType);
+  const isOffersLoaded = useAppSelector(getOffersLoadedStatus);
 
   const dispatch = useDispatch();
 
