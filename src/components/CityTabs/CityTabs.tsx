@@ -10,9 +10,10 @@ import {
   changeSortingType,
   getOffersByCity,
 } from '../../store/offersData/offersData.ts';
+import { getCurrentCityName } from '../../store/offersData/selectors.ts';
 
 function CityTabs() {
-  const currentCity = useAppSelector((state) => state.OFFER.city);
+  const currentCity = useAppSelector(getCurrentCityName);
 
   const dispatch = useAppDispatch();
 

@@ -5,11 +5,12 @@ import { SortingTypes } from '../../consts/const.ts';
 import { TSortingType } from '../../types/TSortingType.ts';
 import { useEffect, useRef, useState } from 'react';
 import { changeSortingType } from '../../store/offersData/offersData.ts';
+import { getCurrentSortingType } from '../../store/offersData/selectors.ts';
 
 function PlacesSorting() {
   const [isFormOpened, setIsFormOpened] = useState(false);
   const sortSpanRef = useRef<HTMLSpanElement>(null);
-  const currentSortingType = useAppSelector((state) => state.OFFER.sortingType);
+  const currentSortingType = useAppSelector(getCurrentSortingType);
   const dispatch = useDispatch();
 
   const hideSortingType = (evt: MouseEvent) => {

@@ -3,9 +3,10 @@ import { AppRoute } from '../../consts/const.ts';
 import FavoriteCitiesList from '../../components/FavoriteCitiesList/FavoriteCitiesList.tsx';
 import FavoriteEmpty from '../../components/FavoritesEmpty/FavoriteEmpty.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
+import { getOffers } from '../../store/offersData/selectors.ts';
 
 function Favorites() {
-  const offers = useAppSelector((state) => state.OFFER.offers);
+  const offers = useAppSelector(getOffers);
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 
   switch (favoriteOffers.length) {

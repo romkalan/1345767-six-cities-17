@@ -14,16 +14,20 @@ import {
 } from '../../store/api-actions.ts';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen.tsx';
 import { useParams } from 'react-router-dom';
+import { getComments } from '../../store/commentsData/selectors.ts';
+import {
+  getOfferById,
+  getOffersByIdLoadedStatus,
+  getOffersNearby,
+} from '../../store/offersData/selectors.ts';
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const offerById = useAppSelector((state) => state.OFFER.offerById);
-  const isOfferLoaded = useAppSelector(
-    (state) => state.OFFER.isOfferByIdDataLoaded,
-  );
-  const offersNearby = useAppSelector((state) => state.OFFER.offersNearby);
-  const comments = useAppSelector((state) => state.COMMENTS.comments);
+  const offerById = useAppSelector(getOfferById);
+  const isOfferLoaded = useAppSelector(getOffersByIdLoadedStatus);
+  const offersNearby = useAppSelector(getOffersNearby);
+  const comments = useAppSelector(getComments);
 
   const { id } = useParams();
 
