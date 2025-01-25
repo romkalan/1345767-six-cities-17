@@ -13,4 +13,5 @@ export type TOffersData = {
   isOfferByIdDataLoaded: boolean;
   currentOfferId: string;
   sortingType: TSortingType;
+  isFavoriteStatus: boolean;
 };

@@ -1,5 +1,6 @@
 import { TOffer } from '../../types/TOffer.ts';
 import OfferCard from '../OfferCard/OfferCard.tsx';
+import { memo } from 'react';
 
 type OfferCardListProps = {
   offers: TOffer[];
@@ -7,7 +8,7 @@ type OfferCardListProps = {
   isNearbyOffers: boolean;
 };
 
-function OfferCardList({
+function OfferCardListTheme({
   offers,
   setActiveOffer,
   isNearbyOffers,
@@ -27,5 +28,7 @@ function OfferCardList({
     </div>
   );
 }
+
+const OfferCardList = memo(OfferCardListTheme);
 
 export default OfferCardList;

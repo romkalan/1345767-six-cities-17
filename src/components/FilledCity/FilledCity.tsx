@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
 import OfferCardList from '../OfferCardList/OfferCardList.tsx';
 import PlacesSorting from '../PlacesSorting/PlacesSorting.tsx';
 import Map from '../Map/Map.tsx';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { TOffer } from '../../types/TOffer.ts';
 import { changeCurrentOfferId } from '../../store/offersData/offersData.ts';
 import {
@@ -11,7 +11,7 @@ import {
   getOffersByCity,
 } from '../../store/offersData/selectors.ts';
 
-function FilledCity() {
+function FilledCityTemplate() {
   const city = useAppSelector(getCurrentCityName);
   const offersByCity = useAppSelector(getOffersByCity);
   const dispatch = useAppDispatch();
@@ -21,7 +21,6 @@ function FilledCity() {
   useEffect(() => {
     if (activeOffer) {
       dispatch(changeCurrentOfferId(activeOffer.id));
-      // dispatch(isOfferByIdDataLoaded(false));
     }
   }, [dispatch, activeOffer]);
 
@@ -47,5 +46,7 @@ function FilledCity() {
     </div>
   );
 }
+
+const FilledCity = memo(FilledCityTemplate);
 
 export default FilledCity;

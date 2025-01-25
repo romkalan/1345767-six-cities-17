@@ -1,6 +1,9 @@
-import { MAX_STARS_FOR_RATING } from '../../consts/const.ts';
+import { RatingStyle } from '../../consts/const.ts';
 import { TOffer } from '../../types/TOffer.ts';
 import { Link } from 'react-router-dom';
+import { memo, useCallback, useState } from 'react';
+import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
+import { changeFavoriteStatus } from '../../store/api-actions.ts';
 
 type OfferCardProps = {
   offer: TOffer;
@@ -8,23 +11,50 @@ type OfferCardProps = {
   isNearbyOffer: boolean;
 };
 
-function OfferCard({ offer, setCurrentCard, isNearbyOffer }: OfferCardProps) {
-  const { isFavorite, isPremium, type, title, previewImage, price, rating } =
-    offer;
-  const ratingStyle = { width: `${(100 / MAX_STARS_FOR_RATING) * rating}%` };
-  const favoriteClass = isFavorite && ' place-card__bookmark-button--active';
+function OfferCardTemplate({
+  offer,
+  setCurrentCard,
+  isNearbyOffer,
+}: OfferCardProps) {
+  const {
+    isFavorite,
+    isPremium,
+    type,
+    title,
+    previewImage,
+    price,
+    rating,
+    id,
+  } = offer;
+
+  const dispatch = useAppDispatch();
+
+  const ratingStyle = { width: RatingStyle(rating) };
+  const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
+  const favoriteClass =
+    favoriteStatus && ' place-card__bookmark-button--active';
 
   const cardClassWrapper = isNearbyOffer ? 'near-places' : 'cities';
   const cardClassWrapperForImage = isNearbyOffer
     ? 'near-places__image'
     : 'cities__image';
 
-  const handleCardOver = () => {
+  const handleCardOver = useCallback(() => {
     setCurrentCard(offer);
-  };
+  }, [setCurrentCard, offer]);
 
-  const handleCardLeave = () => {
+  const handleCardLeave = useCallback(() => {
     setCurrentCard(undefined);
+  }, [setCurrentCard]);
+
+  const handleFavoriteStatus = () => {
+    dispatch(
+      changeFavoriteStatus({
+        offerId: id,
+        isFavoriteStatus: !favoriteStatus,
+      }),
+    );
+    setFavoriteStatus(!favoriteStatus);
   };
 
   return (
@@ -58,6 +88,7 @@ function OfferCard({ offer, setCurrentCard, isNearbyOffer }: OfferCardProps) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
+            onClick={handleFavoriteStatus}
             className={`place-card__bookmark-button ${favoriteClass} button`}
             type="button"
           >
@@ -81,5 +112,6 @@ function OfferCard({ offer, setCurrentCard, isNearbyOffer }: OfferCardProps) {
     </article>
   );
 }
+const OfferCard = memo(OfferCardTemplate);
 
 export default OfferCard;

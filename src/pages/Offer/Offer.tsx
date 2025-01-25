@@ -5,7 +5,7 @@ import ReviewsList from '../../components/ReviewsList/ReviewsList.tsx';
 import Map from '../../components/Map/Map.tsx';
 import OfferCardList from '../../components/OfferCardList/OfferCardList.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
 import {
   fetchOfferById,
@@ -33,7 +33,10 @@ function Offer(): JSX.Element {
 
   const { images, title, rating, price, goods } = offerById;
   const ratingStyle = RatingStyle(rating);
-  const offersNearbyFixedCount = offersNearby.slice(0, 3);
+  const offersNearbyFixedCount = useMemo(
+    () => offersNearby.slice(0, 3),
+    [offersNearby],
+  );
 
   useEffect(() => {
     if (id) {

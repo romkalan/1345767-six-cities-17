@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, memo, useState } from 'react';
 import { AuthorizationStatus, RatingStars } from '../../consts/const.ts';
 import { postNewComment } from '../../store/api-actions.ts';
 import { useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { getAuthorizationStatus } from '../../store/userData/selectors.ts';
 
 const initialFormState: TCommentData = { offerId: '', comment: '', rating: 0 };
 
-function CommentForm(): JSX.Element | null {
+function CommentFormTemplate(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const { id: offerId } = useParams();
   const [formState, setFormState] = useState<TCommentData>(initialFormState);
@@ -107,5 +107,7 @@ function CommentForm(): JSX.Element | null {
     </form>
   );
 }
+
+const CommentForm = memo(CommentFormTemplate);
 
 export default CommentForm;

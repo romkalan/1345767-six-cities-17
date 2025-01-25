@@ -28,3 +28,6 @@ export const getOffersLoadedStatus = (state: TState): boolean =>
 
 export const getOffersByIdLoadedStatus = (state: TState): boolean =>
   state[NameSpace.Offers].isOfferByIdDataLoaded;
+
+export const getFavoriteStatus = (state: TState): boolean =>
+  state[NameSpace.Offers].isFavoriteStatus;
