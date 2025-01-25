@@ -21,6 +21,7 @@ const initialState: TOffersData = {
   isOfferByIdDataLoaded: false,
   currentOfferId: '',
   sortingType: DEFAULT_SORTING,
+  isFavoriteStatus: false,
 };
 
 export const offersData = createSlice({
@@ -76,6 +77,9 @@ export const offersData = createSlice({
     changeCity: (state, { payload }: PayloadAction<TCityName>) => {
       state.city = payload;
     },
+    saveFavoriteStatus: (state, { payload }: PayloadAction<boolean>) => {
+      state.isFavoriteStatus = payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -109,4 +113,5 @@ export const {
   changeCurrentOfferId,
   sortOffers,
   changeSortingType,
+  saveFavoriteStatus,
 } = offersData.actions;

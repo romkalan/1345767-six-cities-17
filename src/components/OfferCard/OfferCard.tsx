@@ -41,11 +41,11 @@ function OfferCardTemplate({
 
   const handleCardOver = useCallback(() => {
     setCurrentCard(offer);
-  }, [offer]);
+  }, [setCurrentCard, offer]);
 
   const handleCardLeave = useCallback(() => {
     setCurrentCard(undefined);
-  }, []);
+  }, [setCurrentCard]);
 
   const handleFavoriteStatus = () => {
     dispatch(
