@@ -4,10 +4,14 @@ import FavoriteCitiesList from '../../components/FavoriteCitiesList/FavoriteCiti
 import FavoriteEmpty from '../../components/FavoritesEmpty/FavoriteEmpty.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import { getOffers } from '../../store/offersData/selectors.ts';
+import { useMemo } from 'react';
 
 function Favorites() {
   const offers = useAppSelector(getOffers);
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const favoriteOffers = useMemo(
+    () => offers.filter((offer) => offer.isFavorite),
+    [offers],
+  );
 
   switch (favoriteOffers.length) {
     case 0:
