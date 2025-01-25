@@ -99,6 +99,20 @@ const postNewComment = createAsyncThunk<
   },
 );
 
+const changeFavoriteStatus = createAsyncThunk<
+  void,
+  { offerId: string; isFavoriteStatus: boolean },
+  { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }
+>(
+  'offer/addToFavoriteList',
+  async ({ offerId, isFavoriteStatus }, { extra: api }) => {
+    const { data } = await api.post<TOfferById>(
+      `${APIRoute.FavoriteOffers}/${offerId}/${Number(isFavoriteStatus)}`,
+    );
+    console.log(data);
+  },
+);
+
 export {
   fetchOffersAction,
   fetchOfferById,
@@ -108,4 +122,5 @@ export {
   checkAuthAction,
   loginAction,
   logoutAction,
+  changeFavoriteStatus,
 };

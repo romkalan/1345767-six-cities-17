@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import { SortingTypes } from '../../consts/const.ts';
 import { TSortingType } from '../../types/TSortingType.ts';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { changeSortingType } from '../../store/offersData/offersData.ts';
 import { getCurrentSortingType } from '../../store/offersData/selectors.ts';
 
-function PlacesSorting() {
+function PlacesSortingTemplate() {
   const [isFormOpened, setIsFormOpened] = useState(false);
   const sortSpanRef = useRef<HTMLSpanElement>(null);
   const currentSortingType = useAppSelector(getCurrentSortingType);
@@ -69,5 +69,7 @@ function PlacesSorting() {
     </form>
   );
 }
+
+const PlacesSorting = memo(PlacesSortingTemplate);
 
 export default PlacesSorting;
