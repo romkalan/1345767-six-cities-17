@@ -112,6 +112,7 @@ function OfferCardTemplate({
     </article>
   );
 }
+
 const OfferCard = memo(OfferCardTemplate);
 
 export default OfferCard;

@@ -1,26 +1,15 @@
-import { Link } from 'react-router-dom';
-import { AppRoute, Cities, DEFAULT_SORTING } from '../../consts/const.ts';
-import classNames from 'classnames';
+import { Cities } from '../../consts/const.ts';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
-import { TCityName } from '../../types/TCityName.ts';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
-import { useEffect } from 'react';
-import {
-  changeCity,
-  changeSortingType,
-  getOffersByCity,
-} from '../../store/offersData/offersData.ts';
-import { getCurrentCityName } from '../../store/offersData/selectors.ts';
+import { memo, useEffect } from 'react';
+import { getOffersByCity } from '../../store/offersProcess/offersProcess.ts';
+import { getCurrentCityName } from '../../store/appProcess/selectors.ts';
+import CityTab from '../CityTab/CityTab.tsx';
 
-function CityTabs() {
+function CityTabsTemplate() {
   const currentCity = useAppSelector(getCurrentCityName);
 
   const dispatch = useAppDispatch();
-
-  const handleChooseCity = (item: TCityName) => {
-    dispatch(changeSortingType(DEFAULT_SORTING));
-    dispatch(changeCity(item));
-  };
 
   useEffect(() => {
     dispatch(getOffersByCity(currentCity));
@@ -31,25 +20,15 @@ function CityTabs() {
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {Cities.map((city) => (
-            <li
-              key={city}
-              className="locations__item"
-              onClick={() => handleChooseCity(city)}
-            >
-              <Link
-                className={classNames('locations__item-link', 'tabs__item', {
-                  'tabs__item--active': currentCity === city,
-                })}
-                to={AppRoute.Root}
-              >
-                <span>{city}</span>
-              </Link>
-            </li>
+            <CityTab key={city} city={city} />
           ))}
+          ;
         </ul>
       </section>
     </div>
   );
 }
+
+const CityTabs = memo(CityTabsTemplate);
 
 export default CityTabs;

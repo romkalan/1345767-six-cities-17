@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { TCommentData } from '../../types/TComment.ts';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
-import { getAuthorizationStatus } from '../../store/userData/selectors.ts';
+import { getAuthorizationStatus } from '../../store/userProcess/selectors.ts';
 
 const initialFormState: TCommentData = { offerId: '', comment: '', rating: 0 };
 

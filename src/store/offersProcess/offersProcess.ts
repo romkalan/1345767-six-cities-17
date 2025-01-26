@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  DEFAULT_CITY,
-  DEFAULT_SORTING,
-  NameSpace,
-} from '../../consts/const.ts';
+import { DEFAULT_SORTING, NameSpace } from '../../consts/const.ts';
 import { TOffersData } from '../../types/TOffersData.ts';
 import { TOfferById } from '../../types/TOfferById.ts';
 import { TOffer } from '../../types/TOffer.ts';
@@ -12,7 +8,6 @@ import { fetchOfferById, fetchOffersAction } from '../api-actions.ts';
 import { TSortingType } from '../../types/TSortingType.ts';
 
 const initialState: TOffersData = {
-  city: DEFAULT_CITY,
   offers: [],
   offersByCity: [],
   offerById: {} as TOfferById,
@@ -24,7 +19,7 @@ const initialState: TOffersData = {
   isFavoriteStatus: false,
 };
 
-export const offersData = createSlice({
+export const offersProcess = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
@@ -44,6 +39,9 @@ export const offersData = createSlice({
     },
     changeCurrentOfferId: (state, { payload }: PayloadAction<string>) => {
       state.currentOfferId = payload;
+    },
+    changeSortingType: (state, { payload }: PayloadAction<TSortingType>) => {
+      state.sortingType = payload;
     },
     sortOffers: (state) => {
       switch (state.sortingType) {
@@ -70,12 +68,6 @@ export const offersData = createSlice({
         default:
           break;
       }
-    },
-    changeSortingType: (state, { payload }: PayloadAction<TSortingType>) => {
-      state.sortingType = payload;
-    },
-    changeCity: (state, { payload }: PayloadAction<TCityName>) => {
-      state.city = payload;
     },
     saveFavoriteStatus: (state, { payload }: PayloadAction<boolean>) => {
       state.isFavoriteStatus = payload;
@@ -105,13 +97,12 @@ export const offersData = createSlice({
 });
 
 export const {
-  changeCity,
   getAllOffers,
   getOffersByCity,
   getOfferById,
   getOffersNearby,
   changeCurrentOfferId,
   sortOffers,
-  changeSortingType,
   saveFavoriteStatus,
-} = offersData.actions;
+  changeSortingType,
+} = offersProcess.actions;

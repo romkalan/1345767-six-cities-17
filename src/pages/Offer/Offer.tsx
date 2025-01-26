@@ -14,12 +14,12 @@ import {
 } from '../../store/api-actions.ts';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen.tsx';
 import { useParams } from 'react-router-dom';
-import { getComments } from '../../store/commentsData/selectors.ts';
+import { getComments } from '../../store/commentsProcess/selectors.ts';
 import {
   getOfferById,
   getOffersByIdLoadedStatus,
   getOffersNearby,
-} from '../../store/offersData/selectors.ts';
+} from '../../store/offersProcess/selectors.ts';
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();

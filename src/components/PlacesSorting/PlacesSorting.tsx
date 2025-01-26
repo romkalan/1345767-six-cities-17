@@ -4,8 +4,11 @@ import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import { SortingTypes } from '../../consts/const.ts';
 import { TSortingType } from '../../types/TSortingType.ts';
 import { memo, useEffect, useRef, useState } from 'react';
-import { changeSortingType } from '../../store/offersData/offersData.ts';
-import { getCurrentSortingType } from '../../store/offersData/selectors.ts';
+import {
+  changeSortingType,
+  sortOffers,
+} from '../../store/offersProcess/offersProcess.ts';
+import { getCurrentSortingType } from '../../store/offersProcess/selectors.ts';
 
 function PlacesSortingTemplate() {
   const [isFormOpened, setIsFormOpened] = useState(false);
@@ -24,6 +27,7 @@ function PlacesSortingTemplate() {
 
   const handleChangeOffersOrder = (item: TSortingType) => {
     dispatch(changeSortingType(item));
+    dispatch(sortOffers());
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { AppRoute } from '../../consts/const.ts';
 import FavoriteCitiesList from '../../components/FavoriteCitiesList/FavoriteCitiesList.tsx';
 import FavoriteEmpty from '../../components/FavoritesEmpty/FavoriteEmpty.tsx';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
-import { getOffers } from '../../store/offersData/selectors.ts';
+import { getOffers } from '../../store/offersProcess/selectors.ts';
 import { useMemo } from 'react';
 
 function Favorites() {

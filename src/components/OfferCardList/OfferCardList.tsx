@@ -8,7 +8,7 @@ type OfferCardListProps = {
   isNearbyOffers: boolean;
 };
 
-function OfferCardListTheme({
+function OfferCardListTemplate({
   offers,
   setActiveOffer,
   isNearbyOffers,
@@ -29,6 +29,6 @@ function OfferCardListTheme({
   );
 }
 
-const OfferCardList = memo(OfferCardListTheme);
+const OfferCardList = memo(OfferCardListTemplate);
 
 export default OfferCardList;
