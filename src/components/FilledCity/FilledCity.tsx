@@ -5,11 +5,9 @@ import PlacesSorting from '../PlacesSorting/PlacesSorting.tsx';
 import Map from '../Map/Map.tsx';
 import { memo, useEffect, useState } from 'react';
 import { TOffer } from '../../types/TOffer.ts';
-import { changeCurrentOfferId } from '../../store/offersData/offersData.ts';
-import {
-  getCurrentCityName,
-  getOffersByCity,
-} from '../../store/offersData/selectors.ts';
+import { changeCurrentOfferId } from '../../store/offersProcess/offersProcess.ts';
+import { getOffersByCity } from '../../store/offersProcess/selectors.ts';
+import { getCurrentCityName } from '../../store/appProcess/selectors.ts';
 
 function FilledCityTemplate() {
   const city = useAppSelector(getCurrentCityName);

@@ -7,7 +7,7 @@ const initialState: TUserAuthData = {
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
-export const userData = createSlice({
+export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {},

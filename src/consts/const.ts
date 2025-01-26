@@ -57,6 +57,7 @@ enum AuthorizationStatus {
 }
 
 enum NameSpace {
+  App = 'App',
   User = 'USER',
   Offers = 'OFFER',
   Comments = 'COMMENTS',

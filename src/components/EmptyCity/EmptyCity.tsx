@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
-import { getCurrentCityName } from '../../store/offersData/selectors.ts';
+import { getCurrentCityName } from '../../store/appProcess/selectors.ts';
 
 function EmptyCity() {
   const currentCity = useAppSelector(getCurrentCityName);

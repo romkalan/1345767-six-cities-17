@@ -7,7 +7,7 @@ const initialState: TCommentsData = {
   comments: [],
 };
 
-export const commentsData = createSlice({
+export const commentsProcess = createSlice({
   name: NameSpace.Comments,
   initialState,
   reducers: {
@@ -20,4 +20,4 @@ export const commentsData = createSlice({
   },
 });
 
-export const { getOfferComments, addNewComment } = commentsData.actions;
+export const { getOfferComments, addNewComment } = commentsProcess.actions;

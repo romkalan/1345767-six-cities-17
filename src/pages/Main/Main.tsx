@@ -3,17 +3,17 @@ import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import EmptyCity from '../../components/EmptyCity/EmptyCity.tsx';
 import FilledCity from '../../components/FilledCity/FilledCity.tsx';
 import classNames from 'classnames';
-import { memo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen.tsx';
-import { sortOffers } from '../../store/offersData/offersData.ts';
+import { sortOffers } from '../../store/offersProcess/offersProcess.ts';
 import {
   getCurrentSortingType,
   getOffersByCity,
   getOffersLoadedStatus,
-} from '../../store/offersData/selectors.ts';
+} from '../../store/offersProcess/selectors.ts';
 
-function MainPageTemplate() {
+function MainPage() {
   const offersByCity = useAppSelector(getOffersByCity);
   const currentSortingType = useAppSelector(getCurrentSortingType);
   const isOffersLoaded = useAppSelector(getOffersLoadedStatus);
@@ -44,7 +44,5 @@ function MainPageTemplate() {
     </div>
   );
 }
-
-const MainPage = memo(MainPageTemplate);
 
 export default MainPage;

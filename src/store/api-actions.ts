@@ -13,11 +13,11 @@ import {
   getOfferById,
   getOffersNearby,
   saveFavoriteStatus,
-} from './offersData/offersData.ts';
+} from './offersProcess/offersProcess.ts';
 import {
   addNewComment,
   getOfferComments,
-} from './commentsData/commentsData.ts';
+} from './commentsProcess/commentsProcess.ts';
 
 const fetchOffersAction = createAsyncThunk<
   void,
