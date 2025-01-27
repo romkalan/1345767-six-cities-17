@@ -12,6 +12,7 @@ const initialState: TOffersData = {
   offersByCity: [],
   offerById: {} as TOfferById,
   offersNearby: [],
+  offersFavorite: [],
   isOffersDataLoaded: false,
   isOfferByIdDataLoaded: false,
   currentOfferId: '',
@@ -25,6 +26,9 @@ export const offersProcess = createSlice({
   reducers: {
     getAllOffers: (state, { payload }: PayloadAction<TOffer[]>) => {
       state.offers = payload;
+    },
+    getFavoriteOffers: (state, { payload }: PayloadAction<TOffer[]>) => {
+      state.offersFavorite = payload;
     },
     getOffersByCity: (state, { payload }: PayloadAction<TCityName>) => {
       state.offersByCity = state.offers.filter(
@@ -69,9 +73,6 @@ export const offersProcess = createSlice({
           break;
       }
     },
-    saveFavoriteStatus: (state, { payload }: PayloadAction<boolean>) => {
-      state.isFavoriteStatus = payload;
-    },
   },
   extraReducers(builder) {
     builder
@@ -103,6 +104,5 @@ export const {
   getOffersNearby,
   changeCurrentOfferId,
   sortOffers,
-  saveFavoriteStatus,
   changeSortingType,
 } = offersProcess.actions;

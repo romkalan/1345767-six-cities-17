@@ -20,6 +20,7 @@ import {
   getOffersByIdLoadedStatus,
   getOffersNearby,
 } from '../../store/offersProcess/selectors.ts';
+import FavoriteButton from '../../components/FavoriteButton/FavoriteButton.tsx';
 
 function Offer(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -31,7 +32,7 @@ function Offer(): JSX.Element {
 
   const { id } = useParams();
 
-  const { images, title, rating, price, goods } = offerById;
+  const { images, title, rating, price, goods, id: offerId } = offerById;
   const ratingStyle = RatingStyle(rating);
   const offersNearbyFixedCount = useMemo(
     () => offersNearby.slice(0, 3),
@@ -64,12 +65,7 @@ function Offer(): JSX.Element {
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoriteButton offerId={offerId} className={'offer'} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

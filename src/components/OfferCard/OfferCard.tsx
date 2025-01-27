@@ -1,9 +1,8 @@
 import { RatingStyle } from '../../consts/const.ts';
 import { TOffer } from '../../types/TOffer.ts';
 import { Link } from 'react-router-dom';
-import { memo, useCallback, useState } from 'react';
-import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
-import { changeFavoriteStatus } from '../../store/api-actions.ts';
+import { memo, useCallback } from 'react';
+import FavoriteButton from '../FavoriteButton/FavoriteButton.tsx';
 
 type OfferCardProps = {
   offer: TOffer;
@@ -16,23 +15,9 @@ function OfferCardTemplate({
   setCurrentCard,
   isNearbyOffer,
 }: OfferCardProps) {
-  const {
-    isFavorite,
-    isPremium,
-    type,
-    title,
-    previewImage,
-    price,
-    rating,
-    id,
-  } = offer;
-
-  const dispatch = useAppDispatch();
+  const { isPremium, type, title, previewImage, price, rating, id } = offer;
 
   const ratingStyle = { width: RatingStyle(rating) };
-  const [favoriteStatus, setFavoriteStatus] = useState<boolean>(isFavorite);
-  const favoriteClass =
-    favoriteStatus && ' place-card__bookmark-button--active';
 
   const cardClassWrapper = isNearbyOffer ? 'near-places' : 'cities';
   const cardClassWrapperForImage = isNearbyOffer
@@ -46,16 +31,6 @@ function OfferCardTemplate({
   const handleCardLeave = useCallback(() => {
     setCurrentCard(undefined);
   }, [setCurrentCard]);
-
-  const handleFavoriteStatus = () => {
-    dispatch(
-      changeFavoriteStatus({
-        offerId: id,
-        isFavoriteStatus: !favoriteStatus,
-      }),
-    );
-    setFavoriteStatus(!favoriteStatus);
-  };
 
   return (
     <article
@@ -87,16 +62,7 @@ function OfferCardTemplate({
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button
-            onClick={handleFavoriteStatus}
-            className={`place-card__bookmark-button ${favoriteClass} button`}
-            type="button"
-          >
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoriteButton offerId={id} className={'place-card'} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

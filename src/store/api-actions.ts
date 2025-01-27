@@ -12,12 +12,12 @@ import {
   getAllOffers,
   getOfferById,
   getOffersNearby,
-  saveFavoriteStatus,
 } from './offersProcess/offersProcess.ts';
 import {
   addNewComment,
   getOfferComments,
 } from './commentsProcess/commentsProcess.ts';
+import { getFavoriteOffers } from './favoriteProcess/favoriteProcess.ts';
 
 const fetchOffersAction = createAsyncThunk<
   void,
@@ -26,6 +26,15 @@ const fetchOffersAction = createAsyncThunk<
 >('data/fetchOffers', async (_arg, { dispatch, extra: api }) => {
   const { data } = await api.get<TOffer[]>(APIRoute.Offers);
   dispatch(getAllOffers(data));
+});
+
+const fetchFavoriteOffersAction = createAsyncThunk<
+  void,
+  undefined,
+  { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }
+>('data/fetchFavoriteOffers', async (_arg, { dispatch, extra: api }) => {
+  const { data } = await api.get<TOffer[]>(APIRoute.FavoriteOffers);
+  dispatch(getFavoriteOffers(data));
 });
 
 const checkAuthAction = createAsyncThunk<
@@ -100,22 +109,32 @@ const postNewComment = createAsyncThunk<
   },
 );
 
-const changeFavoriteStatus = createAsyncThunk<
-  void,
-  { offerId: string; isFavoriteStatus: boolean },
+const uploadFavoriteOfferStatus = createAsyncThunk<
+  TOffer,
+  { offerId: string; favoriteStatus: boolean },
   { dispatch: TAppDispatch; state: TState; extra: AxiosInstance }
 >(
-  'offer/addToFavoriteList',
-  async ({ offerId, isFavoriteStatus }, { dispatch, extra: api }) => {
+  'favorite/uploadFavoriteOffer',
+  async ({ offerId, favoriteStatus }, { getState, extra: api }) => {
+    const nextFavoriteStatus = Number(!favoriteStatus);
     const { data } = await api.post<TOfferById>(
-      `${APIRoute.FavoriteOffers}/${offerId}/${Number(isFavoriteStatus)}`,
+      `${APIRoute.FavoriteOffers}/${offerId}/${nextFavoriteStatus}`,
     );
-    dispatch(saveFavoriteStatus(data.isFavorite));
+
+    const { offers } = getState().OFFER;
+    const currentOffer = offers.find((card) => card.id === data.id);
+
+    if (!currentOffer) {
+      throw new Error(`No such offer with given id: ${data.id}`);
+    }
+
+    return { ...currentOffer, isFavorite: data.isFavorite };
   },
 );
 
 export {
   fetchOffersAction,
+  fetchFavoriteOffersAction,
   fetchOfferById,
   fetchOffersNearby,
   fetchOfferComments,
@@ -123,5 +142,5 @@ export {
   checkAuthAction,
   loginAction,
   logoutAction,
-  changeFavoriteStatus,
+  uploadFavoriteOfferStatus,
 };
