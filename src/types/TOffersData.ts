@@ -7,6 +7,7 @@ export type TOffersData = {
   offersByCity: TOffer[];
   offerById: TOfferById;
   offersNearby: TOffer[];
+  offersFavorite: TOffer[];
   isOffersDataLoaded: boolean;
   isOfferByIdDataLoaded: boolean;
   currentOfferId: string;

@@ -1,23 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts/const.ts';
-import { offers } from '../../mocks/offers.ts';
 import { useAppSelector } from '../../hooks/useAppSelector.ts';
 import { useAppDispatch } from '../../hooks/useAppDispatch.ts';
 import { logoutAction } from '../../store/api-actions.ts';
 import { getUserData } from '../../services/token.ts';
 import { getAuthorizationStatus } from '../../store/userProcess/selectors.ts';
+import { getFavoriteOffers } from '../../store/favoriteProcess/selectors.ts';
 
 function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const { email, avatarUrl } = getUserData();
-
-  const favoriteOffersCount = offers?.filter(
-    (offer) => offer.isFavorite,
-  ).length;
-
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -65,7 +61,7 @@ function Header() {
                         {email}
                       </span>
                       <span className="header__favorite-count">
-                        {favoriteOffersCount}
+                        {favoriteOffers.length}
                       </span>
                     </>
                   )}

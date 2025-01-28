@@ -24,6 +24,3 @@ export const getOffersByIdLoadedStatus = (state: TState): boolean =>
 
 export const getCurrentSortingType = (state: TState): TSortingType =>
   state[NameSpace.Offers].sortingType;
-
-export const getFavoriteStatus = (state: TState): boolean =>
-  state[NameSpace.Offers].isFavoriteStatus;

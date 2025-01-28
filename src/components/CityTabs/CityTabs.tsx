@@ -22,7 +22,6 @@ function CityTabsTemplate() {
           {Cities.map((city) => (
             <CityTab key={city} city={city} />
           ))}
-          ;
         </ul>
       </section>
     </div>
